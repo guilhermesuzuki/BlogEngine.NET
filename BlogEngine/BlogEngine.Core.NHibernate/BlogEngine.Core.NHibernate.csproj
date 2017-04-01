@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0A265715-EE41-4997-8EC5-B3026351BB73}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BlogEngine.Core.NHibernate</RootNamespace>
+    <AssemblyName>BlogEngine.Core.NHibernate</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate.Linq, Version=1.1.0.1001, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.Linq.1.0\lib\NHibernate.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Hub.cs" />
+    <Compile Include="Mappings\BlogRollItemsMap.cs" />
+    <Compile Include="Mappings\CustomFieldsMap.cs" />
+    <Compile Include="Mappings\CategoriesMap.cs" />
+    <Compile Include="Mappings\BlogsMap.cs" />
+    <Compile Include="Mappings\DataStoreSettingsMap.cs" />
+    <Compile Include="Mappings\FileStoreDirectoryMap.cs" />
+    <Compile Include="Mappings\FileStoreFilesMap.cs" />
+    <Compile Include="Mappings\FileStoreFileThumbsMap.cs" />
+    <Compile Include="Mappings\PackageFilesMap.cs" />
+    <Compile Include="Mappings\PackagesMap.cs" />
+    <Compile Include="Mappings\PagesMap.cs" />
+    <Compile Include="Mappings\PingServiceMap.cs" />
+    <Compile Include="Mappings\PostCategoryMap.cs" />
+    <Compile Include="Mappings\PostCommentMap.cs" />
+    <Compile Include="Mappings\PostNotifyMap.cs" />
+    <Compile Include="Mappings\PostsMap.cs" />
+    <Compile Include="Mappings\PostTagMap.cs" />
+    <Compile Include="Mappings\ProfilesMap.cs" />
+    <Compile Include="Mappings\QuickNotesMap.cs" />
+    <Compile Include="Mappings\QuickSettingsMap.cs" />
+    <Compile Include="Mappings\ReferrersMap.cs" />
+    <Compile Include="Mappings\RightRolesMap.cs" />
+    <Compile Include="Mappings\RightsMap.cs" />
+    <Compile Include="Mappings\RolesMap.cs" />
+    <Compile Include="Mappings\SettingsMap.cs" />
+    <Compile Include="Mappings\StopWordsMap.cs" />
+    <Compile Include="Mappings\UserRolesMap.cs" />
+    <Compile Include="Mappings\UsersMap.cs" />
+    <Compile Include="Models\BlogRollItems.cs" />
+    <Compile Include="Models\Blogs.cs" />
+    <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\CustomFields.cs" />
+    <Compile Include="Models\DataStoreSettings.cs" />
+    <Compile Include="Models\FileStoreDirectory.cs" />
+    <Compile Include="Models\FileStoreFiles.cs" />
+    <Compile Include="Models\FileStoreFileThumbs.cs" />
+    <Compile Include="Models\PackageFiles.cs" />
+    <Compile Include="Models\Packages.cs" />
+    <Compile Include="Models\Pages.cs" />
+    <Compile Include="Models\PingService.cs" />
+    <Compile Include="Models\PostCategory.cs" />
+    <Compile Include="Models\PostComment.cs" />
+    <Compile Include="Models\PostNotify.cs" />
+    <Compile Include="Models\Posts.cs" />
+    <Compile Include="Models\PostTag.cs" />
+    <Compile Include="Models\Profiles.cs" />
+    <Compile Include="Models\QuickNotes.cs" />
+    <Compile Include="Models\QuickSettings.cs" />
+    <Compile Include="Models\Referrers.cs" />
+    <Compile Include="Models\RightRoles.cs" />
+    <Compile Include="Models\Rights.cs" />
+    <Compile Include="Models\Roles.cs" />
+    <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\StopWords.cs" />
+    <Compile Include="Models\UserRoles.cs" />
+    <Compile Include="Models\Users.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\NhBlogProvider.cs" />
+    <Compile Include="Providers\NhMembershipProvider.cs" />
+    <Compile Include="Providers\NhRoleProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlogEngine.Core\BlogEngine.Core.csproj">
+      <Project>{9ed9914a-fb6e-4d21-8c71-9122e8c3076b}</Project>
+      <Name>BlogEngine.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
