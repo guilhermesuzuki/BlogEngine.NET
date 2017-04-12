@@ -806,7 +806,8 @@ namespace BlogEngine.Core.EF.Providers
             {
                 var rights = dbContext
                     .Rights
-                    .Where(i => i.BlogId == Blog.CurrentInstance.BlogId);
+                    .Where(i => i.BlogId == Blog.CurrentInstance.BlogId)
+                    .ToList();
 
                 var rightRoles = new Dictionary<string, IEnumerable<string>>();
 
@@ -836,8 +837,8 @@ namespace BlogEngine.Core.EF.Providers
                 using (var dbContext = this.GetDbContext())
                 {
                     //delete right roles
-                    var delRightRoles = dbContext.RightRoles.Where(i => i.BlogId == Blog.CurrentInstance.BlogId);
-                    var delRights = dbContext.Rights.Where(i => i.BlogId == Blog.CurrentInstance.BlogId);
+                    var delRightRoles = dbContext.RightRoles.Where(i => i.BlogId == Blog.CurrentInstance.BlogId).ToList();
+                    var delRights = dbContext.Rights.Where(i => i.BlogId == Blog.CurrentInstance.BlogId).ToList();
 
                     dbContext.RightRoles.RemoveRange(delRightRoles);
                     dbContext.Rights.RemoveRange(delRights);
