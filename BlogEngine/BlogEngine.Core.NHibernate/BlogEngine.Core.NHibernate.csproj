@@ -134,6 +134,14 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)$(OutDir)$(ProjectName).*" "$(SolutionDir)BlogEngine.NET\bin\" /Y
+xcopy "$(ProjectDir)$(OutDir)NHibernate.*" "$(SolutionDir)BlogEngine.NET\bin\" /Y
+xcopy "$(ProjectDir)$(OutDir)Iesi.*" "$(SolutionDir)BlogEngine.NET\bin\" /Y
+xcopy "$(ProjectDir)$(OutDir)FluentNHibernate.*" "$(SolutionDir)BlogEngine.NET\bin\" /Y
+
+xcopy "$(ProjectDir)$(OutDir)System.Data.SQLite.*" "$(SolutionDir)BlogEngine.NET\bin\" /Y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
