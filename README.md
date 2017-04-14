@@ -1,6 +1,7 @@
 ## NHibernate Providers for BlogEngine.NET
 
 This branch contains NHibernate Providers for the BlogEngine.NET CMS. It basically contains 3 main classes: NhBlogProvider, NhMembershipProvider and NhRoleProvider to be used with several different databases
+http://guilhermesuzuki.com/tags/nhibernate%20.net%20blogengine%20providers
 
 ## BlogEngine.NET Source Code
 This repository provides latest source code for BlogEngine.NET project (https://blogengine.codeplex.com)
