@@ -1233,12 +1233,9 @@ namespace BlogEngine.Core.EF.Providers
 
                 using (var dbContext = this.GetDbContext())
                 {
-                    var todelete = dbContext
-                    .DataStoreSettings
-                    .Where(i => i.BlogId == Blog.CurrentInstance.BlogId && i.ExtensionType == type && i.ExtensionId == extensionId);
+                    var todelete = dbContext.DataStoreSettings.Where(i => i.BlogId == Blog.CurrentInstance.BlogId && i.ExtensionType == type && i.ExtensionId == extensionId).ToList();
 
                     dbContext.DataStoreSettings.RemoveRange(todelete);
-                    dbContext.SaveChanges();
 
                     var newdatastoresetting = new Models.DataStoreSettings
                     {
