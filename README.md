@@ -1,5 +1,6 @@
 ## Entity Framework Providers for BlogEngine.NET
 This branch contains Entity Framework Providers for the BlogEngine.NET CMS. It basically contains 3 main classes: EFBlogProvider, EFMembershipProvider and EFRoleProvider to be used with several different databases
+http://guilhermesuzuki.com/tags/ef%20.net%20blogengine%20providers
 
 ## BlogEngine.NET Source Code
 This repository provides latest source code for BlogEngine.NET project (https://blogengine.codeplex.com)
