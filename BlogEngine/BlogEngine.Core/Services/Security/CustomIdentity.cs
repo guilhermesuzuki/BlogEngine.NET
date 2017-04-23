@@ -1,14 +1,8 @@
 ﻿namespace BlogEngine.Core
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Web.Security;
     using System.Security.Principal;
-    using System.Runtime.Serialization;
-    using System.Reflection;
-    using System.Security;
 
     /// <summary>
     /// IIdentity class used for authentication.
@@ -64,11 +58,11 @@
         /// <param name="password">The user's password.</param>
         public CustomIdentity(string username, string password)
         {
-            if (Utils.StringIsNullOrWhitespace(username))
-                throw new ArgumentNullException("username");
+            if (String.IsNullOrWhiteSpace(username))
+                throw new ArgumentNullException(nameof(username));
 
-            if (Utils.StringIsNullOrWhitespace(password))
-                throw new ArgumentNullException("password");
+            if (String.IsNullOrWhiteSpace(password))
+                throw new ArgumentNullException(nameof(password));
 
             if (!Membership.ValidateUser(username, password)) { return; }
 

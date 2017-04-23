@@ -3,7 +3,6 @@ using BlogEngine.Core.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic;
 using System.Web.Security;
 using System.Reflection;
 
@@ -53,7 +52,7 @@ namespace BlogEngine.Core.Data
             var roles = new List<Data.Models.RoleItem>();
             roles.AddRange(System.Web.Security.Roles.GetAllRoles().Select(r => new Data.Models.RoleItem { RoleName = r, IsSystemRole = Security.IsSystemRole(r) }));
 
-            return roles.Where(r => r.RoleName.ToLower() == id.ToLower()).FirstOrDefault();
+            return roles.FirstOrDefault(r => r.RoleName.ToLower() == id.ToLower());
         }
 
         /// <summary>
@@ -67,7 +66,7 @@ namespace BlogEngine.Core.Data
             {
                 throw new System.UnauthorizedAccessException();
             }
-            else if (Utils.StringIsNullOrWhitespace(role.RoleName))
+            else if (String.IsNullOrWhiteSpace(role.RoleName))
             {
                 throw new ApplicationException("Role name is required");
             }
@@ -101,7 +100,7 @@ namespace BlogEngine.Core.Data
             if (!Security.IsAuthorizedTo(Rights.EditRoles))
                 throw new System.UnauthorizedAccessException();
 
-            var updateRole = System.Web.Security.Roles.GetAllRoles().Where(r => r.ToString() == oldRole).FirstOrDefault();
+            var updateRole = Roles.GetAllRoles().FirstOrDefault(r => r.ToString() == oldRole);
 
             if (updateRole == null)
                 throw new ApplicationException("Role not found");
@@ -121,7 +120,7 @@ namespace BlogEngine.Core.Data
             if (!Security.IsAuthorizedTo(Rights.DeleteRoles))
                 throw new System.UnauthorizedAccessException();
 
-            if (Utils.StringIsNullOrWhitespace(id))
+            if (String.IsNullOrWhiteSpace(id))
                 throw new ApplicationException("Role name is required");
 
             try
@@ -172,7 +171,7 @@ namespace BlogEngine.Core.Data
 
                     var category = rightDetails == null ? RightCategory.General : rightDetails.Category;             
 
-                    var group = groups.Where(g => g.Title == category.ToString()).FirstOrDefault();
+                    var group = groups.FirstOrDefault(g => g.Title == category.ToString());
 
                     var prm = new Permission();
                     var rt = Right.GetRightByName(right.ToString());
@@ -234,7 +233,7 @@ namespace BlogEngine.Core.Data
             {
                 throw new System.UnauthorizedAccessException();
             }
-            else if (Utils.StringIsNullOrWhitespace(id))
+            else if (String.IsNullOrWhiteSpace(id))
             {
                 throw new ApplicationException("Invalid role name");
             }

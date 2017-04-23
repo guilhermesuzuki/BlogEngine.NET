@@ -84,12 +84,12 @@ namespace BlogEngine.Core
         {
             if (settings == null)
             {
-                throw new ArgumentNullException("settings");
+                throw new ArgumentNullException(nameof(settings));
             }
 
             if (categories == null)
             {
-                throw new ArgumentNullException("categories");
+                throw new ArgumentNullException(nameof(categories));
             }
 
             // ------------------------------------------------------------
@@ -168,7 +168,7 @@ namespace BlogEngine.Core
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
                 }
                 
                 this.blogSettings = value;
@@ -243,12 +243,12 @@ namespace BlogEngine.Core
         {
             if (stream == null)
             {
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
             }
 
             if (publishables == null)
             {
-                throw new ArgumentNullException("publishables");
+                throw new ArgumentNullException(nameof(publishables));
             }
 
             if (!stream.CanWrite)
@@ -845,7 +845,7 @@ namespace BlogEngine.Core
 
             writer.WriteStartElement("link");
             writer.WriteAttributeString("rel", "self");
-            writer.WriteAttributeString("href", string.Format("{0}syndication.axd?format=atom", Utils.AbsoluteWebRoot));
+            writer.WriteAttributeString("href", $"{Utils.AbsoluteWebRoot}syndication.axd?format=atom");
             writer.WriteEndElement();
 
             // writer.WriteStartElement("link");
@@ -1060,7 +1060,7 @@ namespace BlogEngine.Core
             //     url = HttpContext.Current.Request.Url.ToString();
             // }
             writer.WriteElementString("docs", "http://www.rssboard.org/rss-specification");
-            writer.WriteElementString("generator", string.Format("BlogEngine.NET {0}", BlogSettings.Instance.Version()));
+            writer.WriteElementString("generator", $"BlogEngine.NET {BlogSettings.Instance.Version()}");
 
             // writer.WriteRaw("\n<atom:link href=\"" + url + "\" rel=\"self\" type=\"application/rss+xml\" />");
             if (!String.IsNullOrEmpty(this.Settings.Language))

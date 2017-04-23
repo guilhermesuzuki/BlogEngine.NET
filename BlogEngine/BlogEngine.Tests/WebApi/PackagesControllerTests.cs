@@ -1,11 +1,8 @@
 ﻿using BlogEngine.Core.Data.Models;
 using BlogEngine.Tests.Fakes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Controllers;
@@ -38,7 +35,7 @@ namespace BlogEngine.Tests.WebApi
         public void PackagesControllerGet()
         {
             var results = _ctrl.Get(0, 0);
-            Assert.IsTrue(results.Count() > 0);
+            Assert.IsTrue(results.Any());
         }
 
         [TestMethod]

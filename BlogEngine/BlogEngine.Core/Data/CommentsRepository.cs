@@ -5,7 +5,6 @@ using BlogEngine.Core.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic;
 using System.Web;
 using System.Web.Security;
 
@@ -82,7 +81,7 @@ namespace BlogEngine.Core.Data
             var c = new Comment();
             try
             {
-                var post = Post.Posts.Where(p => p.Id == item.PostId).FirstOrDefault();
+                var post = Post.Posts.FirstOrDefault(p => p.Id == item.PostId);
 
                 c.Id = Guid.NewGuid();
                 c.ParentId = item.ParentId;
@@ -104,7 +103,7 @@ namespace BlogEngine.Core.Data
                 post.AddComment(c);
                 post.Save();
 
-                var newComm = post.Comments.Where(cm => cm.Content == c.Content).FirstOrDefault();
+                var newComm = post.Comments.FirstOrDefault(cm => cm.Content == c.Content);
                 return Json.GetComment(newComm, post.Comments);
             }
             catch (Exception ex)

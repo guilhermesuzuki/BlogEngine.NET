@@ -1,7 +1,6 @@
 ﻿namespace BlogEngine.Core.Web.HttpHandlers
 {
     using System;
-    using System.IO;
     using System.Web;
     using BlogEngine.Core.Providers;
 
@@ -75,18 +74,18 @@
                 if (fileName.Contains(".."))
                 {
                     OnBadRequest(fileName);
-                    context.Response.Redirect(string.Format("{0}error404.aspx", Utils.AbsoluteWebRoot));
+                    context.Response.Redirect($"{Utils.AbsoluteWebRoot}error404.aspx");
                 }
 
                 OnServing(fileName);
-                fileName = !fileName.StartsWith("/") ? string.Format("/{0}", fileName) : fileName;
+                fileName = !fileName.StartsWith("/") ? $"/{fileName}" : fileName;
                 try
                 {
 
-                    var file = BlogService.GetFile(string.Format("{0}files{1}",Blog.CurrentInstance.StorageLocation, fileName));
+                    var file = BlogService.GetFile($"{Blog.CurrentInstance.StorageLocation}files{fileName}");
                     if (file != null)
                     {
-                        context.Response.AppendHeader("Content-Disposition", string.Format("inline; filename=\"{0}\"", file.Name));
+                        context.Response.AppendHeader("Content-Disposition", $"inline; filename=\"{file.Name}\"");
                         SetContentType(context, file.Name);
                         if (Utils.SetConditionalGetHeaders(file.DateCreated.ToUniversalTime()))
                             return;
@@ -97,13 +96,13 @@
                     else
                     {
                         OnBadRequest(fileName);
-                        context.Response.Redirect(string.Format("{0}error404.aspx", Utils.AbsoluteWebRoot));
+                        context.Response.Redirect($"{Utils.AbsoluteWebRoot}error404.aspx");
                     }
                 }
                 catch (Exception)
                 {
                     OnBadRequest(fileName);
-                    context.Response.Redirect(string.Format("{0}error404.aspx", Utils.AbsoluteWebRoot));
+                    context.Response.Redirect($"{Utils.AbsoluteWebRoot}error404.aspx");
                 }
             }
         }

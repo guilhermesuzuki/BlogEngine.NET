@@ -1,15 +1,10 @@
 ﻿namespace BlogEngine.Core.Web.HttpModules
 {
     using System;
-    using System.IO;
     using System.IO.Compression;
-    using System.Text;
-    using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.UI;
     using System.Net;
-    using System.Net.Sockets;
-    using Microsoft.Ajax.Utilities;
     using BlogEngine.Core.Web.Scripting;
 
     /// <summary>
@@ -207,7 +202,7 @@
             cache.SetMaxAge(new TimeSpan(365, 0, 0, 0));
             cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
 
-            var etag = string.Format("\"{0}\"", context.Request.Path.GetHashCode());
+            var etag = $"\"{context.Request.Path.GetHashCode()}\"";
             var incomingEtag = context.Request.Headers["If-None-Match"];
 
             cache.SetETag(etag);
