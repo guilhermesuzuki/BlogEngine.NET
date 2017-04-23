@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Configuration.Provider;
 
 namespace BlogEngine.Core.Providers
@@ -39,12 +36,12 @@ namespace BlogEngine.Core.Providers
         {
             if (provider == null)
             {
-                throw new ArgumentNullException("provider");
+                throw new ArgumentNullException(nameof(provider));
             }
 
             if (!(provider is BlogFileSystemProvider))
             {
-                throw new ArgumentException("Invalid provider type", "provider");
+                throw new ArgumentException("Invalid provider type", nameof(provider));
             }
 
             base.Add(provider);

@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
 
     using BlogEngine.Core.Providers;
 
@@ -366,7 +365,7 @@
 
             var cat = GetCategory((Guid)parent, Blog.CurrentInstance.IsSiteAggregation);
 
-            return cat == null ? title : string.Format("{0} - {1}", cat.CompleteTitle(), title);
+            return cat == null ? title : $"{cat.CompleteTitle()} - {title}";
         }
 
 

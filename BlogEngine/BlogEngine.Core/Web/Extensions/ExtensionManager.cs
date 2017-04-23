@@ -7,7 +7,6 @@
     using System.Linq;
     using System.Reflection;
     using System.Web;
-    using System.Web.Hosting;
     using System.Xml.Serialization;
 
     using BlogEngine.Core.Web.Controls;
@@ -168,17 +167,15 @@
 
             if (!Blog.CurrentInstance.IsPrimary && extension.SubBlogEnabled)
             {
-                return extension.Settings.Where(
-                    setting => setting != null
+                return extension.Settings.FirstOrDefault(setting => setting != null
                     && setting.Name == settingName
-                    && setting.BlogId == Blog.CurrentInstance.Id).FirstOrDefault();
+                    && setting.BlogId == Blog.CurrentInstance.Id);
             }
 
             var primId = Blog.Blogs.FirstOrDefault(b => b.IsPrimary).BlogId;
-            return extension.Settings.Where(
-                    setting => setting != null
+            return extension.Settings.FirstOrDefault(setting => setting != null
                     && setting.Name == settingName
-                    && (setting.BlogId == primId || setting.BlogId == null)).FirstOrDefault();
+                    && (setting.BlogId == primId || setting.BlogId == null));
         }
 
         /// <summary>
@@ -510,7 +507,7 @@
                         }
                         catch (Exception e)
                         {
-                            Utils.Log(string.Format("Can not load {0}: {1}", type.Name, e.Message));
+                            Utils.Log($"Can not load {type.Name}: {e.Message}");
                         }
                     }
                 }

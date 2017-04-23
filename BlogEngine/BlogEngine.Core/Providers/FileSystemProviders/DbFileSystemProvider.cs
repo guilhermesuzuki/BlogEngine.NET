@@ -38,7 +38,7 @@ namespace BlogEngine.Core.Providers
         {
             if (config == null)
             {
-                throw new ArgumentNullException("config");
+                throw new ArgumentNullException(nameof(config));
             }
 
             if (String.IsNullOrEmpty(name))
@@ -87,7 +87,7 @@ namespace BlogEngine.Core.Providers
                 var attr = config.GetKey(0);
                 if (!String.IsNullOrEmpty(attr))
                 {
-                    throw new ProviderException(string.Format("Unrecognized attribute: {0}", attr));
+                    throw new ProviderException($"Unrecognized attribute: {attr}");
                 }
             }
         }
@@ -189,7 +189,7 @@ namespace BlogEngine.Core.Providers
         public override bool DirectoryExists(string VirtualPath)
         {
             VirtualPath = VirtualPath.VirtualPathToDbPath();
-            return new FileSystem.FileStoreDb(this.connectionString).FileStoreDirectories.Where(x => x.FullPath.ToLower() == VirtualPath.ToLower() && x.BlogID == Blog.CurrentInstance.Id).Count() > 0;
+            return new FileSystem.FileStoreDb(this.connectionString).FileStoreDirectories.Any(x => x.FullPath.ToLower() == VirtualPath.ToLower() && x.BlogID == Blog.CurrentInstance.Id);
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace BlogEngine.Core.Providers
                     var cPath = string.Empty;
                     foreach (var pieces in newDirectoryPieces)
                     {
-                        cPath = string.Format("{0}/{1}", cPath, pieces);
+                        cPath = $"{cPath}/{pieces}";
                         if (!DirectoryExists(cPath))
                             CreateDirectory(cPath);
                     }

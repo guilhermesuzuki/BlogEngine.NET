@@ -1,8 +1,6 @@
 ﻿namespace BlogEngine.Core
 {
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
 
     /// <summary>
     /// The role class.
@@ -47,7 +45,7 @@
         {
             if (userNames == null)
             {
-                throw new System.ArgumentNullException("userNames");
+                throw new System.ArgumentNullException(nameof(userNames));
             }
             else
             {

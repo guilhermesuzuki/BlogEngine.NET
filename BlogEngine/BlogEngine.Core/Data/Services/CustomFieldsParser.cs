@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Linq.Dynamic;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Caching;
@@ -117,8 +116,8 @@ namespace BlogEngine.Core.Data.Services
 
                     if (s[1] == "POST")
                     {
-                        var cf = postFields.Where(f => f.Key.ToLower() == key.ToLower()
-                            && f.ObjectId.ToLower() == id.ToLower()).FirstOrDefault();
+                        var cf = postFields.FirstOrDefault(f => f.Key.ToLower() == key.ToLower()
+                            && f.ObjectId.ToLower() == id.ToLower());
 
                         if (cf != null)
                             val = cf.Value;
@@ -126,8 +125,8 @@ namespace BlogEngine.Core.Data.Services
 
                     if (s[1] == "THEME")
                     {
-                        var cf = themeFields.Where(f => f.Key.ToLower() == key.ToLower()
-                            && f.ObjectId.ToLower() == id.ToLower()).FirstOrDefault();
+                        var cf = themeFields.FirstOrDefault(f => f.Key.ToLower() == key.ToLower()
+                            && f.ObjectId.ToLower() == id.ToLower());
 
                         if (cf != null)
                             val = cf.Value;
@@ -159,7 +158,7 @@ namespace BlogEngine.Core.Data.Services
         static List<CustomField> FromThemeTemplates()
         {
             var dirPath = HttpContext.Current.Server.MapPath(
-                string.Format("{0}Custom/Themes", Utils.ApplicationRelativeWebRoot));
+                $"{Utils.ApplicationRelativeWebRoot}Custom/Themes");
 
             var items = new List<CustomField>();
 
