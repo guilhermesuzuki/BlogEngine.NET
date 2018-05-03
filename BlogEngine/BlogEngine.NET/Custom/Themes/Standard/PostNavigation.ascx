@@ -3,13 +3,16 @@
     <div class="text-left next-post">
         <% if (!string.IsNullOrEmpty(NextPostUrl))
            { %>
-        <a href="<%=NextPostUrl %>" class="nav-next">&larr; <%=NextPostTitle %> </a>
+        <a href="<%=NextPostUrl %>" class="nav-next text-center">
+            <i class="fas fa-chevron-circle-left"></i><br /><span><%=NextPostTitle %></span>
+        </a>
         <% } %>
     </div>
     <div class="text-right prev-post ">
         <% if (!string.IsNullOrEmpty(PreviousPostUrl))
            { %>
-        <a href="<%=PreviousPostUrl %>" class="nav-prev"><%=PreviousPostTitle %> &rarr;</a>
+        <a href="<%=PreviousPostUrl %>" class="nav-prev text-center">
+            <i class="fas fa-chevron-circle-right"></i><br /><span><%=PreviousPostTitle %></span>
         <% } %>
     </div>
 </div>

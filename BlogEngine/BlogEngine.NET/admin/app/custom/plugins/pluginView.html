@@ -31,15 +31,15 @@
                     <div ng-if="package.OnlineVersion.length > 0 && package.OnlineVersion > package.LocalVersion" class="item-alert">
                         <div class="alert alert-warning">
                             Update available for this theme.
-                            <button ng-click="upgradePackage(package.Id)" class="btn btn-sm btn-warning pull-right">Update</button>
+                            <button ng-click="upgradePackage(package.Id)" class="btn btn-sm btn-warning float-right">Update</button>
                         </div>
                     </div>
                     <div class="modal-plugin-review" ng-if="package.Extra != null">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
+                        <div class="card panel-default">
+                            <div class="card-header">
                                 <div class="panel-title">{{lbl.writeReview}}</div>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <div class="form-group">
                                     <input class="form-control ltr-dir" ng-model="author" id="txtAuthor" name="txtAuthor" focus-me="focusInput" type="text" placeholder="Name">
                                 </div>
@@ -47,19 +47,19 @@
                                     <textarea rows="3" maxlength="450" class="form-control" id="txtReview" placeholder="{{lbl.typeHere}}..."></textarea>
                                 </div>
                                 <div class="clearfix">
-                                    <div class="star-rating pull-left">
+                                    <div class="star-rating float-left">
                                         <input type="radio" name="rated" value="1" ng-checked="selectedRating == 1" ng-click="setRating(1)"><i></i>
                                         <input type="radio" name="rated" value="2" ng-checked="selectedRating == 2" ng-click="setRating(2)"><i></i>
                                         <input type="radio" name="rated" value="3" ng-checked="selectedRating == 3" ng-click="setRating(3)"><i></i>
                                         <input type="radio" name="rated" value="4" ng-checked="selectedRating == 4" ng-click="setRating(4)"><i></i>
                                         <input type="radio" name="rated" value="5" ng-checked="selectedRating == 5" ng-click="setRating(5)"><i></i>
                                     </div>
-                                    <button data-ng-click="submitRating()" class=" pull-right btn btn-success btn-sm">Submit</button>
+                                    <button data-ng-click="submitRating()" class=" float-right btn btn-success btn-sm">Submit</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel panel-default" ng-if="package.Extra.Reviews != null && package.Extra.Reviews.length > 0">
-                            <div class="panel-heading">
+                        <div class="card panel-default" ng-if="package.Extra.Reviews != null && package.Extra.Reviews.length > 0">
+                            <div class="card-header">
                                 <div class="panel-title">Reviews</div>
                             </div>
                             <ul class="list-group">
@@ -88,16 +88,16 @@
         </div>
     </div>
     <div class="main-header clearfix">
-        <h2 class="page-title pull-left">{{lbl.plugins}}</h2>
-        <a ng-if="IsPrimary" href="{{SiteVars.RelativeWebRoot}}admin/#/custom/plugins/gallery" class="btn btn-success btn-sm btn-hasicon pull-left"><i class="fa fa-plus"></i>{{lbl.theNew}}</a>
-        <div ng-show="IsPrimary" class="btn-group befdv pull-left">
+        <h2 class="page-title float-left">{{lbl.plugins}}</h2>
+        <a ng-if="IsPrimary" href="{{SiteVars.RelativeWebRoot}}admin/#/custom/plugins/gallery" class="btn btn-success btn-sm btn-hasicon float-left"><i class="fa fa-plus"></i>{{lbl.theNew}}</a>
+        <div ng-show="IsPrimary" class="btn-group befdv float-left">
             <a ng-click="processChecked('uninstall', itemsChecked())" ng-disabled="itemsChecked() === false" class="btn btn-sm btn-danger" angular-tooltip tooltip="lbl.doDelete"><i class="fa fa-trash"></i></a>
-            <a ng-click="processChecked('disable', itemsChecked())" ng-disabled="itemsChecked() === false" class="btn btn-sm btn-warning" angular-tooltip tooltip="lbl.disable"><i class="fa fa-close"></i></a>
+            <a ng-click="processChecked('disable', itemsChecked())" ng-disabled="itemsChecked() === false" class="btn btn-sm btn-warning" angular-tooltip tooltip="lbl.disable"><i class="fa fa-times-circle"></i></a>
             <a ng-click="processChecked('enable', itemsChecked())" ng-disabled="itemsChecked() === false" class="btn btn-sm btn-success" angular-tooltip tooltip="lbl.enable"><i class="fa fa-check"></i></a>
         </div>
-        <button class="right-side-toggle pull-right"><span></span><span></span><span></span></button>
-        <div class="right-side pull-right">
-            <div class="search pull-right">
+        <button class="right-side-toggle float-right"><span></span><span></span><span></span></button>
+        <div class="right-side float-right">
+            <div class="search float-right">
                 <i class="fa fa-search"></i>
                 <input type="text" ng-model="query" ng-change="search()" placeholder="{{lbl.search}}..." />
             </div>
@@ -124,7 +124,7 @@
                     <td class="item-version"><span>{{item.LocalVersion}}</span></td>
                     <td class="item-priority">{{item.Priority}}</td>
                     <td class="item-status"><input type="checkbox" data-ng-model="item.Enabled" data-ng-disabled="true"></td>
-                    <td class="item-edit"><a ng-if="item.SettingsUrl" class="btn btn-sm btn-default btn-hasicon" href="" ng-click="showPluginSettings(item.Id)"><i class="fa fa-sliders"></i> {{lbl.customize}}</a></td>
+                    <td class="item-edit"><a ng-if="item.SettingsUrl" class="btn btn-sm btn-default btn-hasicon" href="" ng-click="showPluginSettings(item.Id)"><i class="fas fa-sliders-h"></i> {{lbl.customize}}</a></td>
                 </tr>
             </tbody>
         </table>

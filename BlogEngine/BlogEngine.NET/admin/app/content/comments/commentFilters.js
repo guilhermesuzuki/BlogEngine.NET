@@ -7,17 +7,16 @@ angular.module('blogAdmin').controller('CommentFilterController', ["$rootScope",
 
     $scope.load = function (callback) {
         dataService.getItems('/api/commentfilter', { take: 0, skip: 0 })
-        .success(function (data) {
-            angular.copy(data, $scope.items);
-            gridInit($scope, $filter);
-            $('#txtFilter').val('');
-            $('#txtFilter').focus();
-            spinOff();
-            callback;
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.items);
+                gridInit($scope, $filter);
+                $('#txtFilter').val('');
+                $('#txtFilter').focus();
+                spinOff();
+                callback;
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+            });
     }
 
     $scope.addFilter = function () {
@@ -32,30 +31,28 @@ angular.module('blogAdmin').controller('CommentFilterController', ["$rootScope",
 
         spinOn();
         dataService.addItem("/api/commentfilter", $scope.editItem)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.completed);
-            $scope.load();
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-            spinOff();
-        });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.completed);
+                $scope.load();
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+                spinOff();
+            });
     }
 
     $scope.deleteAll = function (itemsChecked) {
         if (itemsChecked) {
             spinOn();
             dataService.updateItem("/api/commentfilter/deleteall/foo", $scope.editItem)
-            .success(function (data) {
-                toastr.success($rootScope.lbl.completed);
-                $scope.load();
-                spinOff();
-            })
-            .error(function () {
-                toastr.error($rootScope.lbl.failed);
-                spinOff();
-            });
+                .then(function (data) {
+                    toastr.success($rootScope.lbl.completed);
+                    $scope.load();
+                    spinOff();
+                }, function () {
+                    toastr.error($rootScope.lbl.failed);
+                    spinOff();
+                });
         }
     }
 

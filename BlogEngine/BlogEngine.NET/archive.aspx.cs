@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using BlogEngine.Core;
@@ -65,10 +66,10 @@ public partial class archive : BlogEngine.Core.Web.Controls.BlogBasePage
 		SortedDictionary<string, Guid> dic = new SortedDictionary<string, Guid>();
 		foreach (Category cat in Category.Categories)
 		{
-			bool postsExist = cat.Posts.FindAll(delegate(Post post)
+			bool postsExist = cat.Posts.Count(delegate(Post post)
 			{
 				return post.IsVisible;
-			}).Count > 0;
+			}) > 0;
 
 			if (postsExist)
 				dic.Add(cat.Title, cat.Id);
@@ -88,7 +89,7 @@ public partial class archive : BlogEngine.Core.Web.Controls.BlogBasePage
                 if (!categories.Contains(cat.Title))
                 {
                     string name = cat.Title;
-                    List<Post> list = cat.Posts.FindAll(delegate(Post p) { return p.IsVisible; });
+                    List<Post> list = cat.Posts.Where(delegate(Post p) { return p.IsVisible; }).ToList();
 
                     HtmlGenericControl h2 = CreateRowHeader(cat, name, list.Count);
                     phArchive.Controls.Add(h2);
@@ -135,13 +136,14 @@ public partial class archive : BlogEngine.Core.Web.Controls.BlogBasePage
             feed.HRef = cat.FeedRelativeLink;
 
 			HtmlImage img = new HtmlImage();
-            img.Src = Utils.RelativeWebRoot + "Content/images/blog/rssButton.png";
+			img.Src = Utils.RelativeWebRoot + "Resources/images/blog/rssButton.png";
 			img.Alt = "RSS";
 			feed.Controls.Add(img);
+
 			h2.Controls.Add(feed);
 		}
 
-		Control header = new LiteralControl(name + " (" + count + ")");
+		Control header = new LiteralControl($"<span>{name} ({count})</span>");
 		h2.Controls.Add(header);
 		return h2;
 	}
@@ -156,7 +158,7 @@ public partial class archive : BlogEngine.Core.Web.Controls.BlogBasePage
 		row.Cells.Add(date);
 
 		HtmlTableCell title = new HtmlTableCell();
-		title.InnerHtml = $"<a href=\"{post.RelativeLink}\">{post.Title}</a>";
+		title.InnerHtml = string.Format("<a href=\"{0}\">{1}</a>", post.RelativeLink, post.Title);
 		title.Attributes.Add("class", "title");
 		row.Cells.Add(title);
 
@@ -170,7 +172,7 @@ public partial class archive : BlogEngine.Core.Web.Controls.BlogBasePage
             }
             else
             {
-                comments.InnerHtml = $"<span><a href=\"{post.PermaLink}#comment\">{Resources.labels.comments}</a></span>";
+                comments.InnerHtml = string.Format("<span><a href=\"{0}#comment\">{1}</a></span>", post.PermaLink, Resources.labels.comments);
             }
             comments.Attributes.Add("class", "comments");
 			row.Cells.Add(comments);

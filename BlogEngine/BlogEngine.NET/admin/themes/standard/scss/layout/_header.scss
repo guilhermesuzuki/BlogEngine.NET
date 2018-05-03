@@ -21,11 +21,11 @@
         @include border-radius(2px);
     }
 
-    .btn.pull-left {
+    .btn.float-left {
         margin-right: 10px;
     }
 
-    .btn.pull-right {
+    .btn.float-right {
         margin-left: 10px;
     }
 
@@ -185,11 +185,11 @@
             }
         }
 
-        .btn.pull-left {
+        .btn.float-left {
             margin-right: 5px;
         }
 
-        .btn.pull-right {
+        .btn.float-right {
             margin-left: 5px;
         }
 
@@ -232,7 +232,7 @@
                 @include triangle(up, 7px, #ccc);
             }
 
-            .pull-right, .pull-left {
+            .float-right, .float-left {
                 float: none !important;
             }
 

@@ -125,18 +125,17 @@ function processChecked(url, action, scope, dataService) {
         return false;
     }
     dataService.processChecked(url + action, checked)
-    .success(function (data) {
-        scope.load();
-        toastr.success(BlogAdmin.i18n.completed);
-        if ($('#chkAll')) {
-            $('#chkAll').prop('checked', false);
-        }
-        spinOff();
-    })
-    .error(function (data) {
-        toastr.error(BlogAdmin.i18n.failed);
-        spinOff();
-    });
+        .then(function (data) {
+            scope.load();
+            toastr.success(BlogAdmin.i18n.completed);
+            if ($('#chkAll')) {
+                $('#chkAll').prop('checked', false);
+            }
+            spinOff();
+        }, function (data) {
+            toastr.error(BlogAdmin.i18n.failed);
+            spinOff();
+        });
 }
 
 function getFromQueryString(param) {

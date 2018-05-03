@@ -1,6 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" %>
 
 <%@ Import Namespace="BlogEngine.Core" %>
+<%@ Import Namespace="System.Web.Optimization" %>
 <%
     Page.Header.DataBind();
 
@@ -31,13 +32,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
     <link href="css/styles.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="~/Content/images/blog/blogengine.ico" type="image/x-icon" />
-    <link href="~/scripts/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="~/Resources/images/blog/blogengine.ico" type="image/x-icon" />
+    <asp:PlaceHolder runat="server">
+        <%: Styles.Render("~/(css,common)") %>
+        <%: Scripts.Render("~/(js,common)") %>
+    </asp:PlaceHolder>
+    <%--<link href="~/scripts/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
     <link href="~/scripts/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="<%# Utils.ApplicationRelativeWebRoot %>scripts/syntaxhighlighter/scripts/XRegExp.js"></script>
     <script type="text/javascript" src="<%# Utils.ApplicationRelativeWebRoot %>scripts/syntaxhighlighter/scripts/shCore.js"></script>
     <script type="text/javascript" src="<%# Utils.ApplicationRelativeWebRoot %>scripts/syntaxhighlighter/scripts/shAutoloader.js"></script>
-    <script type="text/javascript" src="<%# Utils.ApplicationRelativeWebRoot %>scripts/syntaxhighlighter/shActivator.js"></script>
+    <script type="text/javascript" src="<%# Utils.ApplicationRelativeWebRoot %>scripts/syntaxhighlighter/shActivator.js"></script>--%>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body class="<%=Resources.labels.LangDirection %>">

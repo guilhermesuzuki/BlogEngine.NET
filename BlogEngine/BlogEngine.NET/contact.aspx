@@ -45,5 +45,5 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="<%=Utils.ApplicationRelativeWebRoot %>Scripts/contact.js"></script>
+  <script type="text/javascript" src="<%=Utils.ApplicationRelativeWebRoot %>Resources/contact.js"></script>
 </asp:content>

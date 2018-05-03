@@ -45,14 +45,14 @@
         </div>
     </div>
     <div class="main-header clearfix">
-        <h2 class="page-title pull-left">{{lbl.filters}}</h2>
-        <button type="button" class="btn btn-default btn-sm btn-hasicon pull-left" onclick="window.history.back()"><i class="fa fa-angle-left"></i>{{lbl.back}}</button>
-        <button data-toggle="modal" data-target="#AddFilter" class="btn btn-hasicon btn-sm btn-success pull-left"><i class="fa fa-plus"></i>{{lbl.add}}</button>
-        <div class="btn-group pull-left">
+        <h2 class="page-title float-left">{{lbl.filters}}</h2>
+        <button type="button" class="btn btn-default btn-sm btn-hasicon float-left" onclick="window.history.back()"><i class="fa fa-angle-left"></i>{{lbl.back}}</button>
+        <button data-toggle="modal" data-target="#AddFilter" class="btn btn-hasicon btn-sm btn-success float-left"><i class="fa fa-plus"></i>{{lbl.add}}</button>
+        <div class="btn-group float-left">
             <a ng-click="processChecked('delete', itemsChecked())" ng-disabled="itemsChecked() === false" class="btn btn-sm btn-danger" angular-tooltip tooltip="lbl.doDelete"><i class="fa fa-trash"></i></a>
             <a data-ng-click="deleteAll(itemsChecked())" ng-disabled="itemsChecked() === false" class="btn btn-sm btn-danger" angular-tooltip tooltip="lbl.deleteAll"><i class="fa fa-times"></i></a>
         </div>
-        <div class="search pull-right">
+        <div class="search float-right">
             <i class="fa fa-search"></i>
             <input type="text" ng-model="query" ng-change="search()" placeholder="{{lbl.search}}..." />
         </div>

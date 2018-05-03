@@ -24,15 +24,15 @@
         </div>
     </div>
     <div class="main-header clearfix">
-        <h2 class="page-title pull-left">{{lbl.myProfile}}</h2>
-        <button data-ng-click="save()" class="btn btn-success btn-hasicon btn-sm btn-header pull-left" type="button"><i class="fa fa-check"></i>{{lbl.save}}</button>
-        <a href="{{SiteVars.RelativeWebRoot}}Account/change-password.aspx" class="btn btn-default btn-sm btn-hasicon pull-right"><i class="fa fa-key"></i>{{lbl.changePassword}}</a>
+        <h2 class="page-title float-left">{{lbl.myProfile}}</h2>
+        <button data-ng-click="save()" class="btn btn-success btn-hasicon btn-sm btn-header float-left" type="button"><i class="fa fa-check"></i>{{lbl.save}}</button>
+        <a href="{{SiteVars.RelativeWebRoot}}Account/change-password.aspx" class="btn btn-default btn-sm btn-hasicon float-right"><i class="fa fa-key"></i>{{lbl.changePassword}}</a>
     </div>
     <div class="content-inner">
         <div id="frm-user-edit" class="form-content">
             <div class="form-group">
                 <div class="profile-info clearfix">
-                    <img ng-src="{{photo}}" width="100" class="pull-left profile-info-img" title="Profile Picture" />
+                    <img ng-src="{{photo}}" width="100" class="float-left profile-info-img" title="Profile Picture" />
                     <div class="profile-info-title">{{user.Profile.DisplayName}}</div>
                     <div class="profile-info-role">{{lbl.roles}}: <span data-ng-repeat="role in user.Roles">{{role.RoleName}}</span></div>
                     <input type="file" class="input-file-hidden" onchange="angular.element(this).scope().changePicture(this.files)" />
@@ -55,10 +55,10 @@
             </div>
             <hr />
             <div id="frm-custom-edit ">
-                <div class="panel panel-default panel-custom-fields">
-                    <div class="panel-heading clearfix">
-                        <div class="pull-left panel-title">Custom field</div>
-                        <div class="pull-right">
+                <div class="card panel-default panel-custom-fields">
+                    <div class="card-header clearfix">
+                        <div class="float-left panel-title">Custom field</div>
+                        <div class="float-right">
                             <button data-ng-click="showCustom()" class="btn btn-hasicon btn-sm btn-default" type="button">
                                 <i class="fa fa-plus"></i> {{lbl.add}}
                             </button>

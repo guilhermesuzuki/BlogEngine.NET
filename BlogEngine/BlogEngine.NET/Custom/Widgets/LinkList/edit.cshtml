@@ -71,8 +71,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
-    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Resources/[bootstrap]/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Resources/[fontawesome]/css/fontawesome.css">
+    <link rel="stylesheet" href="~/Resources/[fontawesome]/css/fa-solid.css">
+    <link rel="stylesheet" href="~/Resources/[fontawesome]/css/fa-brands.css">
     <link rel="stylesheet" href="~/admin/themes/standard/css/styles.css">
 </head>
 <body class="widget-edit">
@@ -106,7 +108,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         @if (!string.IsNullOrEmpty(editId))
-            {
+                        {
                             <button type="submit" id="btnUpdate" name="btnUpdate" formaction="@updateLink" class="btn btn-success">@Resources.labels.update</button>
                         }
                         else
@@ -127,7 +129,7 @@
                 </thead>
                 <tbody>
                     @foreach (var link in links)
-            {
+                    {
                         <tr>
                             <td>
                                 <a href="?id=@widgetId&editid=@link.Id" title="@Resources.labels.edit"><i class="fa fa-pencil"></i></a> &nbsp;
@@ -151,7 +153,6 @@
             </table>
             <input type="hidden" id="hdnId" name="hdnId" value="@hdnId" />
         </form>
-  
     </div>
 </body>
 </html>

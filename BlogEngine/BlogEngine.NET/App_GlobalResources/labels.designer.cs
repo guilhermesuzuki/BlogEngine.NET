@@ -5849,6 +5849,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select an option.
+        /// </summary>
+        internal static string selectAnOption {
+            get {
+                return ResourceManager.GetString("selectAnOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select day.
         /// </summary>
         internal static string selectDay {

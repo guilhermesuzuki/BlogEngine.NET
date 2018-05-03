@@ -1736,4 +1736,7 @@
   <data name="phoneMain" xml:space="preserve">
     <value>Teléfono</value>
   </data>
+  <data name="selectAnOption" xml:space="preserve">
+    <value>Escoja una opción</value>
+  </data>
 </root>

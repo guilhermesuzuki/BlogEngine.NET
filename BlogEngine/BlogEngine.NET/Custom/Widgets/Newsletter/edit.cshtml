@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Resources/[bootstrap]/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/admin/themes/standard/css/styles.css">
 
     <script>
@@ -30,7 +30,7 @@
                 <ul class="list-group">
                     @foreach (var email in Newsletter.LoadEmails())
                     {
-                        <li class="list-group-item"><span>@email</span> <button onclick="deleteEmail('@email')" class=" btn btn-danger btn-sm pull-right email-delete">@Resources.labels.delete</button></li>
+                        <li class="list-group-item"><span>@email</span> <button onclick="deleteEmail('@email')" class=" btn btn-danger btn-sm float-right email-delete">@Resources.labels.delete</button></li>
                     }
                 </ul>
             </div>

@@ -20,8 +20,8 @@
     $scope.load = function () {
         spinOn();
         dataService.getItems('/api/packages', { take: 0, skip: 0, filter: $scope.fltr, order: 'LastUpdated desc' })
-        .success(function (data) {
-            angular.copy(data, $scope.items);
+        .then(function (response) {
+            angular.copy(response.data, $scope.items);
             gridInit($scope, $filter);
             if ($scope.galleryFilter) {
                 $scope.setFilter();
@@ -33,7 +33,7 @@
             }
             spinOff();
         })
-        .error(function () {
+        .catch(function () {
             toastr.error($rootScope.lbl.errorLoadingPackages);
             spinOff();
         });
@@ -41,19 +41,18 @@
 
     $scope.showPluginInfo = function (id) {
         dataService.getItems('/api/packages/' + id)
-        .success(function (data) {
-            angular.copy(data, $scope.package);
-            $scope.selectedRating = $scope.package.Rating;
+            .then(function (response) {
+                angular.copy(response.data, $scope.package);
+                $scope.selectedRating = $scope.package.Rating;
 
-            $scope.extEditSrc = SiteVars.RelativeWebRoot + "admin/Extensions/Settings.aspx?ext=" + $scope.id + "&enb=False";
-            if ($scope.package.SettingsUrl) {
-                $scope.extEditSrc = $scope.package.SettingsUrl.replace("~/", SiteVars.RelativeWebRoot);
-            }
-            $scope.removeEmptyReviews();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingPackages);
-        });
+                $scope.extEditSrc = SiteVars.RelativeWebRoot + "admin/Extensions/Settings.aspx?ext=" + $scope.id + "&enb=False";
+                if ($scope.package.SettingsUrl) {
+                    $scope.extEditSrc = $scope.package.SettingsUrl.replace("~/", SiteVars.RelativeWebRoot);
+                }
+                $scope.removeEmptyReviews();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingPackages);
+            });
         $("#modal-info").modal();
     }
 
@@ -100,22 +99,21 @@
         var review = { "Name": author, "Rating": $scope.selectedRating, "Body": $("#txtReview").val() };
 
         dataService.updateItem("/api/packages/rate/" + $scope.package.Extra.Id, review)
-        .success(function (data) {
-            //if (data != null) {
-            //    data = JSON.parse(data);
-            //}
-            if (data.length === 0) {
-                toastr.success($rootScope.lbl.completed);
-            }
-            else {
-                toastr.error(data);
-            }
-            $("#modal-info").modal("hide");
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-            $("#modal-info").modal("hide");
-        });
+            .then(function (response) {
+                //if (data != null) {
+                //    data = JSON.parse(data);
+                //}
+                if (response.data.length === 0) {
+                    toastr.success($rootScope.lbl.completed);
+                }
+                else {
+                    toastr.error(response.data);
+                }
+                $("#modal-info").modal("hide");
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+                $("#modal-info").modal("hide");
+            });
     }
 
     $scope.setPriority = function (upDown) {
@@ -158,39 +156,36 @@
     $scope.installPackage = function (pkgId) {
         spinOn();
         dataService.updateItem("/api/packages/install/" + pkgId, pkgId)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.completed);
-            $scope.load();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-            spinOff();
-        });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.completed);
+                $scope.load();
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+                spinOff();
+            });
     }
 
     $scope.uninstallPackage = function (pkgId) {
         spinOn();
         dataService.updateItem("/api/packages/uninstall/" + pkgId, pkgId)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.completed);
-            $scope.load();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-            spinOff();
-        });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.completed);
+                $scope.load();
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+                spinOff();
+            });
     }
 
     $scope.upgradePackage = function (pkgId) {
         spinOn();
         dataService.updateItem("/api/packages/uninstall/" + pkgId, pkgId)
-        .success(function (data) {
-            $scope.installPackage(pkgId);
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-            spinOff();
-        });
+            .then(function (data) {
+                $scope.installPackage(pkgId);
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+                spinOff();
+            });
     }
 
     $scope.load();

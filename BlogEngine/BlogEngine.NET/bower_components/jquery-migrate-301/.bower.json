@@ -1,0 +1,31 @@
+{
+  "name": "jquery-migrate-301",
+  "homepage": "https://github.com/universalien/jquery-migrate-301",
+  "authors": [
+    "<universalien@gmx.de>"
+  ],
+  "version": "3.0.1",
+  "description": "jquery-migrate 3.0.1",
+  "main": "jquery-migrate-3.0.1.js",
+  "keywords": [
+    "jquery",
+    "migrate"
+  ],
+  "license": "https://jquery.org/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "3.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.0.1",
+    "commit": "e016793a3c307fd0609e4618899b0579ce78bc6a"
+  },
+  "_source": "https://github.com/universalien/jquery-migrate-301.git",
+  "_target": "3.0.1",
+  "_originalSource": "jquery-migrate-301"
+}

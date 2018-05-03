@@ -16,16 +16,16 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button data-ng-click="save()" class="btn btn-success pull-right btn-tabkey"><i class="fa fa-save"></i>{{lbl.save}}</button>
+                        <button data-ng-click="save()" class="btn btn-success float-right btn-tabkey"><i class="fa fa-save"></i>{{lbl.save}}</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="focusInput=false"><i class="fa fa-ban"></i>{{lbl.cancel}}</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="main-header clearfix">
-            <h2 class="page-title pull-left">{{lbl.pingService}}</h2>
-            <button ng-click="modalNew()" class="btn btn-success btn-sm btn-hasicon pull-left" type="button"><i class="fa fa-plus"></i>{{lbl.add}}</button>
-            <div class="btn-group befdv pull-left">
+            <h2 class="page-title float-left">{{lbl.pingService}}</h2>
+            <button ng-click="modalNew()" class="btn btn-success btn-sm btn-hasicon float-left" type="button"><i class="fa fa-plus"></i>{{lbl.add}}</button>
+            <div class="btn-group befdv float-left">
                 <button ng-disabled="itemsChecked() === false" ng-click="processChecked('delete')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>{{lbl.doDelete}}</button>
             </div>
         </div>
@@ -43,7 +43,7 @@
                     <tr data-ng-repeat="item in pagedItems[currentPage]">
                         <td> <input type="checkbox" data-ng-model="item.IsChecked" /> </td>
                         <td class="table-item-title">
-                            <a title="{{item.OptionName}}" target="_blank" href="{{item.ServiceUrl}}" class="text-ellipsis pull-left">{{item.ServiceUrl}}</a>
+                            <a title="{{item.OptionName}}" target="_blank" href="{{item.ServiceUrl}}" class="text-ellipsis float-left">{{item.ServiceUrl}}</a>
                         </td>
                     </tr>
                 </tbody>

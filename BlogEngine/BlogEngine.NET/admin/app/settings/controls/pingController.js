@@ -11,16 +11,15 @@ angular.module('blogAdmin').controller('PingSericesController', ["$rootScope", "
     }
 
     $scope.load = function (callback) {
-        dataService.getItems('/api/pingservices', { })
-        .success(function (data) {
-            angular.copy(data, $scope.items);
-            gridInit($scope, $filter);
-            callback;
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingBlogs);
-        });
+        dataService.getItems('/api/pingservices', {})
+            .then(function (response) {
+                angular.copy(response.data, $scope.items);
+                gridInit($scope, $filter);
+                callback;
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingBlogs);
+            });
     }
 
     $scope.save = function () {
@@ -30,20 +29,19 @@ angular.module('blogAdmin').controller('PingSericesController', ["$rootScope", "
         spinOn();
         $scope.newItem.OptionName = $scope.newItem.OptionValue;
         dataService.addItem("/api/pingservices", $scope.newItem)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.completed);
-            $scope.newItem = {};
-            $scope.load();
-            spinOff();
-            $("#modal-add").modal('hide');
-            $scope.focusInput = false;
-        })
-        .error(function (data) {
-            toastr.error(data);
-            spinOff();
-            $("#modal-add").modal('hide');
-            $scope.focusInput = false;
-        });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.completed);
+                $scope.newItem = {};
+                $scope.load();
+                spinOff();
+                $("#modal-add").modal('hide');
+                $scope.focusInput = false;
+            }, function (response) {
+                toastr.error(response.data);
+                spinOff();
+                $("#modal-add").modal('hide');
+                $scope.focusInput = false;
+            });
     }
 
     $scope.processChecked = function (action) {

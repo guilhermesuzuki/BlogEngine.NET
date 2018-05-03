@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
 using System.Xml;
+using System.Web;
+using System.Linq;
 using System.Collections.Specialized;
 
 namespace BlogEngine.Core.Data.ViewModels

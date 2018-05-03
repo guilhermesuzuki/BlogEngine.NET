@@ -1,7 +1,7 @@
 ﻿@using BlogEngine.Core
 @{
     var name = Security.CurrentUser.Identity.Name;
-    var src = Utils.ApplicationRelativeWebRoot + "Content/images/blog/noavatar.jpg";
+    var src = Utils.ApplicationRelativeWebRoot + "Resources/images/blog/noavatar.jpg";
     var displayName = "Anonymous";
 
     var profile = AuthorProfile.GetProfile(name);
@@ -52,7 +52,7 @@
         @if (Security.IsAuthorizedTo(Rights.ManageExtensions))
         {
             <li id="mu-custom">
-                <a href="{{SiteVars.RelativeWebRoot}}admin/#/custom/themes"><i class="fa fa-sliders"></i> @Resources.labels.custom</a>
+                <a href="{{SiteVars.RelativeWebRoot}}admin/#/custom/themes"><i class="fas fa-sliders-h"></i> @Resources.labels.custom</a>
                 <ul class="sub-nav-sidebar">
                     <li data-ng-class="{ active: isActive('/custom/themes')}"><a class="ng-binding" href="{{SiteVars.RelativeWebRoot}}admin/#/custom/themes">@Resources.labels.themes</a></li>
                     <li data-ng-class="{ active: isActive('/custom/plugins')}"><a class="ng-binding" href="{{SiteVars.RelativeWebRoot}}admin/#/custom/plugins">@Resources.labels.plugins</a></li>

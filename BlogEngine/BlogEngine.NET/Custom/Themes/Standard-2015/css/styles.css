@@ -106,8 +106,8 @@ a:hover { color: #000; }
 .clearfix:before, .clearfix:after { display: table; content: " "; }
 .clearfix:after { clear: both; }
 .center-block { display: block; margin-right: auto; margin-left: auto; }
-.pull-right { float: right !important; }
-.pull-left { float: left !important; }
+.float-right { float: right !important; }
+.float-left { float: left !important; }
 .hide { display: none !important; }
 .show { display: block !important; }
 .invisible { visibility: hidden; }
@@ -304,7 +304,7 @@ form, body, html { height: 100%; }
 
 /*[18]*/
 .categorylist ul li a img { display: none; }
-.categorylist ul li a[rel=nofollow]:before { font-family: 'fontello'; content: '\e814'; color: #f28115; margin-right: 10px; }
+.categorylist ul li a[rel=nofollow]:before { font-family: 'fontello'; content: '\e814'; color: #f28115; margin-right: 5px; }
 
 /*[19]*/
 .monthlist li { font-weight: normal; }
@@ -437,7 +437,7 @@ form, body, html { height: 100%; }
 @media screen and (max-width:640px) {
     .header-nav ul { text-align: center !important; }
     .header-nav ul li { margin: 0 10px !important; }
-    .post .post-info .pull-right { display: none; }
+    .post .post-info .float-right { display: none; }
     .post-home .post-info { display: none; }
     .post-home .post-header { padding: 0; }
     .post-home .post-header .post-title { margin: 0; }

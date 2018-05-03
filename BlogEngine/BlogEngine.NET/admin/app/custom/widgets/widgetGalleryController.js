@@ -15,33 +15,31 @@
     $scope.load = function () {
         spinOn();
         dataService.getItems('/api/packages', { take: 0, skip: 0, filter: $scope.fltr, order: 'LastUpdated desc' })
-        .success(function (data) {
-            angular.copy(data, $scope.items);
-            gridInit($scope, $filter);
-            $scope.gridFilter('PackageType', 'Widget', 'pub');
-            var pkgId = getFromQueryString('pkgId');
-            if (pkgId != null) {
-                $scope.query = pkgId;
-                $scope.search();
-            }
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingPackages);
-            spinOff();
-        });
+            .then(function (data) {
+                angular.copy(data, $scope.items);
+                gridInit($scope, $filter);
+                $scope.gridFilter('PackageType', 'Widget', 'pub');
+                var pkgId = getFromQueryString('pkgId');
+                if (pkgId != null) {
+                    $scope.query = pkgId;
+                    $scope.search();
+                }
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingPackages);
+                spinOff();
+            });
     }
 
     $scope.showInfo = function (id) {
         dataService.getItems('/api/packages/' + id)
-        .success(function (data) {
-            angular.copy(data, $scope.package);
-            $scope.selectedRating = $scope.package.Rating;
-            $scope.removeEmptyReviews();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingPackages);
-        });
+            .then(function (data) {
+                angular.copy(data, $scope.package);
+                $scope.selectedRating = $scope.package.Rating;
+                $scope.removeEmptyReviews();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingPackages);
+            });
         $("#modal-info").modal();
     }
 
@@ -61,39 +59,36 @@
     $scope.installPackage = function (pkgId) {
         spinOn();
         dataService.updateItem("/api/packages/install/" + pkgId, pkgId)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.completed);
-            $scope.load();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-            spinOff();
-        });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.completed);
+                $scope.load();
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+                spinOff();
+            });
     }
 
     $scope.uninstallPackage = function (pkgId) {
         spinOn();
         dataService.updateItem("/api/packages/uninstall/" + pkgId, pkgId)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.completed);
-            $scope.load();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-            spinOff();
-        });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.completed);
+                $scope.load();
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+                spinOff();
+            });
     }
 
     $scope.upgradePackage = function (pkgId) {
         spinOn();
         dataService.updateItem("/api/packages/uninstall/" + pkgId, pkgId)
-        .success(function (data) {
-            $scope.installPackage(pkgId);
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-            spinOff();
-        });
+            .then(function (data) {
+                $scope.installPackage(pkgId);
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+                spinOff();
+            });
     }
 
     $scope.setRating = function (rating) {

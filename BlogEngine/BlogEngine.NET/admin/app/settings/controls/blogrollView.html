@@ -74,16 +74,16 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button data-ng-click="save()" class="btn btn-success pull-right btn-tabkey"><i class="fa fa-save"></i>{{lbl.save}}</button>
+                        <button data-ng-click="save()" class="btn btn-success float-right btn-tabkey"><i class="fa fa-save"></i>{{lbl.save}}</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="focusInput=false"><i class="fa fa-ban"></i>{{lbl.cancel}}</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="main-header clearfix">
-            <h2 class="page-title pull-left">{{lbl.blogroll}} </h2>
-            <a href="" ng-click="modalNew()" class="btn btn-success btn-sm btn-hasicon pull-left"><i class="fa fa-plus"></i>New</a>
-            <div class="btn-group befdv pull-left">
+            <h2 class="page-title float-left">{{lbl.blogroll}} </h2>
+            <a href="" ng-click="modalNew()" class="btn btn-success btn-sm btn-hasicon float-left"><i class="fa fa-plus"></i>New</a>
+            <div class="btn-group befdv float-left">
                 <button ng-click="processChecked('delete')" ng-disabled="itemsChecked() === false" class="btn btn-sm btn-danger" title="{{lbl.doDelete}}"><i class="fa  fa-trash"></i></button>
             </div>
         </div>
@@ -101,11 +101,11 @@
                     <tr data-ng-repeat="item in pagedItems[currentPage]">
                         <td class="item-checkbox"><input type="checkbox" data-ng-model="item.IsChecked" /> </td>
                         <td class="item-title">
-                            <a title="{{item.Title}}" href="" ng-click="modalEdit(item.Id)" class="text-ellipsis pull-left">{{item.Title}}</a>
-                            <a title="{{item.FeedUrl}}" class="external-link pull-right" target="_blank" href="{{item.FeedUrl}}"><i class="fa fa-external-link"></i></a>
+                            <a title="{{item.Title}}" href="" ng-click="modalEdit(item.Id)" class="text-ellipsis float-left">{{item.Title}}</a>
+                            <a title="{{item.FeedUrl}}" class="external-link float-right" target="_blank" href="{{item.FeedUrl}}"><i class="fas fa-external-link-alt"></i></a>
                         </td>
-                        <td class="item-desc"><span class="pull-left">{{item.Description}}</span></td>
-                        <td class="item-state"><span class="pull-left">{{item.Xfn}}</span></td>
+                        <td class="item-desc"><span class="float-left">{{item.Description}}</span></td>
+                        <td class="item-state"><span class="float-left">{{item.Xfn}}</span></td>
                     </tr>
                     <tr id="tr-spinner"><td colspan="4"><div id="div-spinner"><i class="fa fa-spinner fa-spin"></i></div></td></tr>
                 </tbody>

@@ -1,4 +1,5 @@
-﻿using BlogEngine.Core.Data.Models;
+﻿using System.Collections.Generic;
+using BlogEngine.Core.Data.Models;
 using System;
 
 namespace BlogEngine.Core.Data.Contracts

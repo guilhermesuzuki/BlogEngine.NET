@@ -47,7 +47,7 @@
             <label class="col-md-2 control-label" style="height: auto;"><%=Resources.labels.previewComment %></label>
             <div class="col-md-10">
                 <div id="commentPreview" class="form-control comment-preview">
-                    <img src="<%=Utils.RelativeWebRoot %>Content/images/blog/ajax-loader.gif" style="display: none" alt="Loading" />
+                    <img src="<%=Utils.RelativeWebRoot %>Resources/images/blog/ajax-loader.gif" style="display: none" alt="Loading" />
                 </div>
             </div>
         </div>

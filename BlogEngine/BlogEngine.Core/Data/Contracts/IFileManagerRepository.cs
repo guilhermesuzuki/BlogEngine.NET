@@ -1,4 +1,6 @@
-﻿using BlogEngine.Core.FileSystem;
+﻿using BlogEngine.Core.Data.Models;
+using BlogEngine.Core.FileSystem;
+using System;
 using System.Collections.Generic;
 
 namespace BlogEngine.Core.Data.Contracts

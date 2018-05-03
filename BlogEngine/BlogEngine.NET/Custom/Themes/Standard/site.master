@@ -1,6 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" %>
 
 <%@ Import Namespace="BlogEngine.Core" %>
+<%@ Import Namespace="System.Web.Optimization" %>
 <%
     Page.Header.DataBind();
 
@@ -23,18 +24,14 @@
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <asp:PlaceHolder runat="server">
+        <%: Styles.Render("~/(css,common)") %>
+        <%: Scripts.Render("~/(js,common)") %>
+    </asp:PlaceHolder>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Kreon:400,700" rel="stylesheet">
-    <link href="src/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="src/css/font-awesome.min.css" rel="stylesheet" />
     <link href="src/css/styles.min.css?=v12" rel="stylesheet" />
-    <link href="~/scripts/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
-    <link href="~/scripts/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="<%# Utils.ApplicationRelativeWebRoot %>scripts/syntaxhighlighter/scripts/XRegExp.js"></script>
-    <script type="text/javascript" src="<%# Utils.ApplicationRelativeWebRoot %>scripts/syntaxhighlighter/scripts/shCore.js"></script>
-    <script type="text/javascript" src="<%# Utils.ApplicationRelativeWebRoot %>scripts/syntaxhighlighter/scripts/shAutoloader.js"></script>
-    <script type="text/javascript" src="<%# Utils.ApplicationRelativeWebRoot %>scripts/syntaxhighlighter/shActivator.js"></script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder>
-    <link rel="shortcut icon" href="~/Content/images/blog/blogengine.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="~/Resources/images/blog/blogengine.ico" type="image/x-icon" />
     <style>
         body {
             background: [CUSTOMFIELD|THEME|Standard|background color left|#232526/];
@@ -42,6 +39,14 @@
             background: linear-gradient(to left, [CUSTOMFIELD|THEME|Standard|background color right|#414345/], [CUSTOMFIELD|THEME|Standard|background color left|#232526/]);
         }
     </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            common.yoxview(".blog-content");
+            common.enabling.yoxview(".blog-content");
+            $("[data-tooltipster=true]").each(function () { common.enabling.toolTipster(this); });
+            $("[data-tooltipster=True]").each(function () { common.enabling.toolTipster(this); });
+        });
+    </script>
 </head>
 <body class="<%=Resources.labels.LangDirection %>">
     <form runat="Server">
@@ -70,9 +75,9 @@
                         </div>
                         <nav class="blog-nav">
                             <ul>
-                                <li><a href="<%=Utils.AbsoluteWebRoot %>" class="item-home" title="<%=Resources.labels.home %>"><i class="fa fa-home"></i></a></li>
-                                <li><a href="<%=Utils.AbsoluteWebRoot %>archive" class="item-archive" title="<%=Resources.labels.archive %>"><i class="fa fa-align-left"></i></a></li>
-                                <li><a href="<%=Utils.AbsoluteWebRoot %>contact" class="item-contact" title="<%=Resources.labels.contact %>"><i class="fa fa-envelope"></i></a></li>
+                                <li><a href="<%=Utils.AbsoluteWebRoot %>" class="item-home" title="<%=Resources.labels.home %>"><i class="fas fa-home"></i></a></li>
+                                <li><a href="<%=Utils.AbsoluteWebRoot %>archive" class="item-archive" title="<%=Resources.labels.archive %>"><i class="fas fa-align-left"></i></a></li>
+                                <li><a href="<%=Utils.AbsoluteWebRoot %>contact" class="item-contact" title="<%=Resources.labels.contact %>"><i class="fas fa-envelope"></i></a></li>
                                 <li><a runat="server" id="aLogin" class="item-login" title=""><span id="aLoginText" runat="server"></span></a></li>
                             </ul>
                         </nav>
@@ -95,7 +100,6 @@
                 </div>
             </div>
         </div>
-        <script src="<%=Utils.RelativeWebRoot %>custom/themes/standard/src/js/bootstrap.min.js"></script>
         <script src="<%=Utils.RelativeWebRoot %>custom/themes/standard/src/js/custom.js"></script>
     </form>
 </body>

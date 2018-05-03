@@ -1,0 +1,34 @@
+{
+  "name": "json2-js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/bramski/JSON-js",
+  "authors": [
+    "bramski <bramski@gmail.com>"
+  ],
+  "description": "JSON encoders/Decoders.",
+  "main": "json2.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "json",
+    "json2"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.0",
+    "commit": "db06548c9623743652bd861933d8669aeda70515"
+  },
+  "_source": "https://github.com/bramski/JSON-js.git",
+  "_target": "v1.0.0",
+  "_originalSource": "json2-js"
+}

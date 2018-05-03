@@ -1,0 +1,17 @@
+{
+  "name": "boostrap",
+  "version": "4.0.2",
+  "authors": [
+    "mrthanh <thanhkhuatdac@gmail.com>"
+  ],
+  "description": "demo bootstrap Bower",
+  "main": "/",
+  "keywords": [
+    "fonticons"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/thanhkhuatdac/boostrap-4.0.2.git",
+  "ignore": [
+    "README.md"
+  ]
+}

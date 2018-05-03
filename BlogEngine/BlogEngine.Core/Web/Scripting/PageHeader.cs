@@ -53,11 +53,6 @@ namespace BlogEngine.Core.Web.Scripting
                 page.Header.Controls.AddAt(idx, link);
                 idx++;
             }
-            foreach (var style in GetStyles())
-            {
-                page.Header.Controls.AddAt(idx, style);
-                idx++;
-            }
 
             idx = GetIndex(page);
             foreach (var script in GetScripts())
@@ -69,19 +64,6 @@ namespace BlogEngine.Core.Web.Scripting
 
         #region Private Methods
 
-        List<LiteralControl> GetStyles()
-        {
-            var headerStyles = new List<LiteralControl>();
-            var tmpl = "\n\t<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />";
-
-            foreach (var f in GetFiles($"{Utils.ApplicationRelativeWebRoot}Content/Auto"))
-            {
-                var href = $"{Utils.ApplicationRelativeWebRoot}Content/Auto/{f}";
-                headerStyles.Add(new LiteralControl(string.Format(tmpl, href)));
-            }
-            return headerStyles;
-        }
-
         List<LiteralControl> GetScripts()
         {
             var headerScripts = new List<LiteralControl>();
@@ -89,17 +71,11 @@ namespace BlogEngine.Core.Web.Scripting
             var lang = BlogSettings.Instance.Language;
 
             // if specific culture set in blog settings, use it instead
-            if (BlogSettings.Instance.Culture.ToLower() != "auto")
-                lang = BlogSettings.Instance.Culture;
+            if (BlogSettings.Instance.Culture.ToLower() != "auto") lang = BlogSettings.Instance.Culture;
 
             var rsrc = HttpHandlers.ResourceHandler.GetScriptPath(new CultureInfo(lang));
             headerScripts.Add(new LiteralControl(string.Format(tmpl, rsrc)));
 
-            foreach (var f in GetFiles($"{Utils.ApplicationRelativeWebRoot}Scripts/Auto"))
-            {
-                var href = $"{Utils.ApplicationRelativeWebRoot}Scripts/Auto/{f}";
-                headerScripts.Add(new LiteralControl(string.Format(tmpl, href)));
-            }
             return headerScripts;
         }
 

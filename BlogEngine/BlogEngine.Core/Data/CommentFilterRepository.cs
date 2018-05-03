@@ -4,8 +4,10 @@ using BlogEngine.Core.Web.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Web.Hosting;
 
 namespace BlogEngine.Core.Data
 {

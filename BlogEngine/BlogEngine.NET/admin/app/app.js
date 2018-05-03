@@ -1,40 +1,38 @@
 ﻿(function () {
     var app = angular.module("blogAdmin", ['ngRoute', 'ngSanitize']);
 
-    var config = ["$routeProvider", function ($routeProvider) {
+    var config = ["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
+        $locationProvider.hashPrefix('');
+        $routeProvider.eagerInstantiationEnabled(false);
         $routeProvider
-        .when("/", { templateUrl: "app/dashboard/dashboardView.html" })
-
-        .when("/content/posts", { templateUrl: "app/content/posts/postView.html" })
-        .when("/content/blogs", { templateUrl: "app/content/blogs/blogView.html" })
-        .when("/content/comments", { templateUrl: "app/content/comments/commentView.html" })
-        .when("/content/comments/filters", { templateUrl: "app/content/comments/commentFilters.html" })
-        .when("/content/pages", { templateUrl: "app/content/pages/pageView.html" })
-        .when("/content/categories", { templateUrl: "app/content/categories/categoryView.html" })
-        .when("/content/tags", { templateUrl: "app/content/tags/tagView.html" })
-
-        .when("/custom/plugins", { templateUrl: "app/custom/plugins/pluginView.html" })
-        .when("/custom/plugins/gallery", { templateUrl: "app/custom/plugins/pluginGallery.html" })
-        .when("/custom/themes", { templateUrl: "app/custom/themes/themeView.html" })
-        .when("/custom/themes/gallery", { templateUrl: "app/custom/themes/themeGallery.html" })
-        .when("/custom/widgets", { templateUrl: "app/custom/widgets/widgetView.html" })
-        .when("/custom/widgets/gallery", { templateUrl: "app/custom/widgets/widgetGallery.html" })
-
-        .when("/security/profile", { templateUrl: "app/security/profile/profileView.html" })
-        .when("/security/roles", { templateUrl: "app/security/roles/roleView.html" })
-        .when("/security/users", { templateUrl: "app/security/users/userView.html" })
-
-        .when("/settings/basic", { templateUrl: "app/settings/basicView.html" })
-        .when("/settings/feed", { templateUrl: "app/settings/feedView.html" })
-        .when("/settings/email", { templateUrl: "app/settings/emailView.html" })
-        .when("/settings/comments", { templateUrl: "app/settings/commentView.html" })
-        .when("/settings/controls", { templateUrl: "app/settings/controlView.html" })
-        .when("/settings/advanced", { templateUrl: "app/settings/advancedView.html" })
-        .when("/settings/controls/blogroll", { templateUrl: "app/settings/controls/blogrollView.html" })
-        .when("/settings/controls/pings", { templateUrl: "app/settings/controls/pingView.html" })
-        .when("/settings/tools", { templateUrl: "app/settings/tools/checkView.html" })
-
-        .otherwise({ redirectTo: "/" });
+            .when("/", { templateUrl: "app/dashboard/dashboardView.html" })
+            .when("/content/posts", { templateUrl: "app/content/posts/postView.html" })
+            .when("/content/blogs", { templateUrl: "app/content/blogs/blogView.html" })
+            .when("/content/comments", { templateUrl: "app/content/comments/commentView.html" })
+            .when("/content/comments/filters", { templateUrl: "app/content/comments/commentFilters.html" })
+            .when("/content/pages", { templateUrl: "app/content/pages/pageView.html" })
+            .when("/content/categories", { templateUrl: "app/content/categories/categoryView.html" })
+            .when("/content/tags", { templateUrl: "app/content/tags/tagView.html" })
+            .when("/custom/plugins", { templateUrl: "app/custom/plugins/pluginView.html" })
+            .when("/custom/plugins/gallery", { templateUrl: "app/custom/plugins/pluginGallery.html" })
+            .when("/custom/themes", { templateUrl: "app/custom/themes/themeView.html" })
+            .when("/custom/themes/gallery", { templateUrl: "app/custom/themes/themeGallery.html" })
+            .when("/custom/widgets", { templateUrl: "app/custom/widgets/widgetView.html" })
+            .when("/custom/widgets/gallery", { templateUrl: "app/custom/widgets/widgetGallery.html" })
+            .when("/security/profile", { templateUrl: "app/security/profile/profileView.html" })
+            .when("/security/roles", { templateUrl: "app/security/roles/roleView.html" })
+            .when("/security/users", { templateUrl: "app/security/users/userView.html" })
+            .when("/settings/basic", { templateUrl: "app/settings/basicView.html" })
+            .when("/settings/feed", { templateUrl: "app/settings/feedView.html" })
+            .when("/settings/email", { templateUrl: "app/settings/emailView.html" })
+            .when("/settings/comments", { templateUrl: "app/settings/commentView.html" })
+            .when("/settings/controls", { templateUrl: "app/settings/controlView.html" })
+            .when("/settings/advanced", { templateUrl: "app/settings/advancedView.html" })
+            .when("/settings/controls/blogroll", { templateUrl: "app/settings/controls/blogrollView.html" })
+            .when("/settings/controls/pings", { templateUrl: "app/settings/controls/pingView.html" })
+            .when("/settings/tools", { templateUrl: "app/settings/tools/checkView.html" })
+            .otherwise({ redirectTo: "/" })
+            ;
     }];
     app.config(config);
 

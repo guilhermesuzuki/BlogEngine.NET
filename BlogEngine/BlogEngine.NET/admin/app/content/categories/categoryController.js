@@ -7,8 +7,14 @@
 
     if ($scope.id) {
         dataService.getItems('/api/categories', { Id: $scope.id })
-            .success(function (data) { angular.copy(data, $scope.category); })
-            .error(function () { toastr.error($rootScope.lbl.errorLoadingCategory); });
+            .then(
+            function (response) {
+                angular.copy(response.data, $scope.category);
+            },
+            function () {
+                toastr.error($rootScope.lbl.errorLoadingCategory);
+            });
+
         $("#modal-add-cat").modal();
         $scope.focusInput = true;
     }
@@ -21,17 +27,15 @@
 
     $scope.load = function () {
         dataService.getItems('/api/lookups')
-            .success(function (data) { angular.copy(data, $scope.lookups); })
-            .error(function () { toastr.error("Error loading lookups"); });
+            .then(function (response) { angular.copy(response.data, $scope.lookups); }, function () { toastr.error("Error loading lookups"); });
 
         var p = { skip: 0, take: 0 };
         dataService.getItems('/api/categories', p)
-            .success(function (data) {
-                angular.copy(data, $scope.items);
+            .then(function (response) {
+                angular.copy(response.data, $scope.items);
                 gridInit($scope, $filter);
                 spinOff();
-            })
-            .error(function () {
+            }, function () {
                 toastr.error($rootScope.lbl.errorLoadingCategories);
             });
     }
@@ -44,22 +48,20 @@
         }
         if ($scope.category.Id) {
             dataService.updateItem("/api/categories/update/" + $scope.category.Id, $scope.category)
-           .success(function (data) {
-               toastr.success($rootScope.lbl.categoryUpdated);
-               $scope.load();
-           })
-           .error(function (data) { toastr.error(data); });
+                .then(function (data) {
+                    toastr.success($rootScope.lbl.categoryUpdated);
+                    $scope.load();
+                }, function (response) { toastr.error(response.data); });
         }
         else {
             dataService.addItem("/api/categories", $scope.category)
-           .success(function (data) {
-               toastr.success($rootScope.lbl.categoryAdded);
-               if (data.Id) {
-                   angular.copy(data, $scope.category);
-                   $scope.load();
-               }
-           })
-           .error(function (data) { toastr.error(data); });
+                .then(function (response) {
+                    toastr.success($rootScope.lbl.categoryAdded);
+                    if (response.data.Id) {
+                        angular.copy(response.data, $scope.category);
+                        $scope.load();
+                    }
+                }, function (response) { toastr.error(response.data); });
         }
         $("#modal-add-cat").modal('hide');
         $scope.focusInput = false;

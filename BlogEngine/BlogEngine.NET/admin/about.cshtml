@@ -41,11 +41,11 @@
 <div class="about-view content">
     <button tabindex="-1" class="sidebar-toggle"><span></span><span></span><span></span></button>
     <div class="main-header clearfix">
-        <h2 class="page-title pull-left">@Resources.labels.about</h2>
+        <h2 class="page-title float-left">@Resources.labels.about</h2>
     </div>
     <div class="content-inner">
         <div class="about-section">
-            <div class="about-logo"><a href="http://dotnetblogengine.net/"><img src="~/Content/images/blog/logo.png" /></a></div>
+            <div class="about-logo"><a href="http://dotnetblogengine.net/"><img src="~/Resources/images/blog/logo.png" /></a></div>
             <p class="text-justify">
                 BlogEngine.NET is an open source ASP.NET project that was born out of desire for a better blogging platform. We focused on simplicity, ease of use, extendibility and innovative design while taking advantage of the latest .NET features.
             </p>
@@ -57,15 +57,15 @@
                     <li><a class="btn btn-default btn-hasicon btn-sm" target="_blank" href="http://dotnetblogengine.net/"><i class="fa fa-globe"></i> Website</a></li>
                     <li><a class="btn btn-default btn-hasicon btn-sm" target="_blank" href="http://dnbe.net/docs"><i class="fa fa-question-circle"></i> Docs</a></li>
                     <li><a class="btn btn-default btn-hasicon btn-sm" target="_blank" href="http://dnbe.net/v01"><i class="fa fa-cube"></i> Gallery</a></li>
-                    <li><a class="btn btn-default btn-hasicon btn-sm" target="_blank" href="https://github.com/rxtur/BlogEngine.NET/"><i class="fa fa-github"></i> Source</a></li>
-                    <li><a class="btn btn-default btn-hasicon btn-sm" target="_blank" href="https://www.facebook.com/BlogEngine.NET"><i class="fa fa-facebook"></i> Facebook</a></li>
-                    <li><a class="btn btn-default btn-hasicon btn-sm" target="_blank" href="https://twitter.com/blogenginenet"><i class="fa fa-twitter"></i> Twitter</a></li>
-                    <li><a class="btn btn-default btn-hasicon btn-sm" target="_blank" href="https://www.youtube.com/user/blogenginenet"><i class="fa fa-youtube"></i> Youtube</a></li>
+                    <li><a class="btn btn-default btn-hasicon btn-sm" target="_blank" href="https://github.com/rxtur/BlogEngine.NET/"><i class="fab fa-github"></i> Source</a></li>
+                    <li><a class="btn btn-default btn-hasicon btn-sm" target="_blank" href="https://www.facebook.com/BlogEngine.NET"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a class="btn btn-default btn-hasicon btn-sm" target="_blank" href="https://twitter.com/blogenginenet"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a class="btn btn-default btn-hasicon btn-sm" target="_blank" href="https://www.youtube.com/user/blogenginenet"><i class="fab fa-youtube"></i> Youtube</a></li>
                 </ul>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
+        <div class="card panel-default">
+            <div class="card-header">
                 <div class="panel-title">Your BlogEngine.NET Specification</div>
             </div>
             <ul class="list-group">
@@ -94,4 +94,4 @@
         </div>
     </div>
 </div>
-@Scripts.Render("~/scripts/blogadmin")
+@Scripts.Render("~/(js,blogadmin)")

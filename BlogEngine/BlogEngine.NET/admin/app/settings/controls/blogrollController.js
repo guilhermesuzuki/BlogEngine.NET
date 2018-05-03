@@ -19,50 +19,48 @@ angular.module('blogAdmin').controller('BlogRollController', ["$rootScope", "$sc
         $scope.xfnReset();
         spinOn();
         dataService.getItems('/api/blogroll/' + id)
-        .success(function (data) {
-            angular.copy(data, $scope.editItem);
-            var x = $scope.editItem.Xfn.split(" ");
-            for (var i = 0, len = x.length; i < len; i++) {
-                if (x[i] == "contact") $scope.xfn.contact = true;
-                if (x[i] == "acquaintance") $scope.xfn.acquaintance = true;
-                if (x[i] == "friend") $scope.xfn.friend = true;
-                if (x[i] == "met") $scope.xfn.met = true;
-                if (x[i] == "co-worker") $scope.xfn.coworker = true;
-                if (x[i] == "colleague") $scope.xfn.colleague = true;
-                if (x[i] == "co-resident") $scope.xfn.coresident = true;
-                if (x[i] == "neighbor") $scope.xfn.neighbor = true;
-                if (x[i] == "child") $scope.xfn.child = true;
-                if (x[i] == "parent") $scope.xfn.parent = true;
-                if (x[i] == "sibling") $scope.xfn.sibling = true;
-                if (x[i] == "spouse") $scope.xfn.spouse = true;
-                if (x[i] == "kin") $scope.xfn.kin = true;
-                if (x[i] == "muse") $scope.xfn.muse = true;
-                if (x[i] == "crush") $scope.xfn.crush = true;
-                if (x[i] == "date") $scope.xfn.date = true;
-                if (x[i] == "sweetheart") $scope.xfn.sweetheart = true;
-                if (x[i] == "me") $scope.xfn.me = true;
-            }
-            $("#modal-edit").modal();
-            $scope.focusInput = true;
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-            spinOff();
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.editItem);
+                var x = $scope.editItem.Xfn.split(" ");
+                for (var i = 0, len = x.length; i < len; i++) {
+                    if (x[i] == "contact") $scope.xfn.contact = true;
+                    if (x[i] == "acquaintance") $scope.xfn.acquaintance = true;
+                    if (x[i] == "friend") $scope.xfn.friend = true;
+                    if (x[i] == "met") $scope.xfn.met = true;
+                    if (x[i] == "co-worker") $scope.xfn.coworker = true;
+                    if (x[i] == "colleague") $scope.xfn.colleague = true;
+                    if (x[i] == "co-resident") $scope.xfn.coresident = true;
+                    if (x[i] == "neighbor") $scope.xfn.neighbor = true;
+                    if (x[i] == "child") $scope.xfn.child = true;
+                    if (x[i] == "parent") $scope.xfn.parent = true;
+                    if (x[i] == "sibling") $scope.xfn.sibling = true;
+                    if (x[i] == "spouse") $scope.xfn.spouse = true;
+                    if (x[i] == "kin") $scope.xfn.kin = true;
+                    if (x[i] == "muse") $scope.xfn.muse = true;
+                    if (x[i] == "crush") $scope.xfn.crush = true;
+                    if (x[i] == "date") $scope.xfn.date = true;
+                    if (x[i] == "sweetheart") $scope.xfn.sweetheart = true;
+                    if (x[i] == "me") $scope.xfn.me = true;
+                }
+                $("#modal-edit").modal();
+                $scope.focusInput = true;
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+                spinOff();
+            });
     }
 
     $scope.load = function (callback) {
-        dataService.getItems('/api/blogroll', { })
-        .success(function (data) {
-            angular.copy(data, $scope.items);
-            gridInit($scope, $filter);
-            callback;
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingBlogs);
-        });
+        dataService.getItems('/api/blogroll', {})
+            .then(function (response) {
+                angular.copy(response.data, $scope.items);
+                gridInit($scope, $filter);
+                callback;
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingBlogs);
+            });
     }
 
     $scope.save = function () {
@@ -81,37 +79,35 @@ angular.module('blogAdmin').controller('BlogRollController', ["$rootScope", "$sc
 
     $scope.saveOld = function () {
         dataService.updateItem("/api/blogroll/update/item", $scope.editItem)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.completed);
-            $scope.load();
-            spinOff();
-            $("#modal-edit").modal('hide');
-            $scope.focusInput = true;
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-            spinOff();
-            $("#modal-edit").modal('hide');
-            $scope.focusInput = true;
-        });
+            .then(function (response) {
+                toastr.success($rootScope.lbl.completed);
+                $scope.load();
+                spinOff();
+                $("#modal-edit").modal('hide');
+                $scope.focusInput = true;
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+                spinOff();
+                $("#modal-edit").modal('hide');
+                $scope.focusInput = true;
+            });
     }
 
     $scope.saveNew = function () {
         dataService.addItem("/api/blogroll", $scope.editItem)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.completed);
-            $scope.editItem = {};
-            $scope.load();
-            spinOff();
-            $("#modal-edit").modal('hide');
-            $scope.focusInput = false;
-        })
-        .error(function (data) {
-            toastr.error(data);
-            spinOff();
-            $("#modal-edit").modal('hide');
-            $scope.focusInput = false;
-        });
+            .success(function (data) {
+                toastr.success($rootScope.lbl.completed);
+                $scope.editItem = {};
+                $scope.load();
+                spinOff();
+                $("#modal-edit").modal('hide');
+                $scope.focusInput = false;
+            }, function (response) {
+                toastr.error(response.data);
+                spinOff();
+                $("#modal-edit").modal('hide');
+                $scope.focusInput = false;
+            });
     }
 
     $scope.processChecked = function (action) {

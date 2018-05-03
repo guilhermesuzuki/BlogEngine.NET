@@ -27,20 +27,20 @@
         </div>
     </form>
     <div class="main-header clearfix">
-        <h2 class="page-title pull-left">{{lbl.comments}}</h2>
-        <div class="btn-group pull-left">
+        <h2 class="page-title float-left">{{lbl.comments}}</h2>
+        <div class="btn-group float-left">
             <a ng-click="processChecked('delete', itemsChecked())" ng-disabled="itemsChecked() === false" class="btn btn-sm btn-danger" angular-tooltip tooltip="lbl.doDelete"><i class="fa fa-trash"></i></a>
             <a ng-show="filter === 'pnd' || filter === 'spm'" ng-click="deleteAll()" class="btn btn-danger btn-sm" angular-tooltip tooltip="lbl.deleteAll"><i class="fa fa-times"></i></a>
             <a ng-show="filter != 'spm' && filter != 'png'" ng-click="processChecked('unapprove', itemsChecked())" ng-disabled="itemsChecked() === false" class="btn btn-warning btn-sm" angular-tooltip tooltip="lbl.unapprove"><i class="fa fa-archive"></i></a>
             <a ng-show="filter != 'apr' && filter != 'png'" ng-click="processChecked('approve', itemsChecked())" ng-disabled="itemsChecked() === false" class="btn btn-success btn-sm" angular-tooltip tooltip="lbl.approve"><i class="fa fa-check"></i></a>
         </div>
-        <button class="right-side-toggle pull-right"><span></span><span></span><span></span></button>
-        <div class="right-side pull-right">
-            <div class="search pull-right">
+        <button class="right-side-toggle float-right"><span></span><span></span><span></span></button>
+        <div class="right-side float-right">
+            <div class="search float-right">
                 <i class="fa fa-search"></i>
                 <input type="text" ng-model="query" ng-change="search()" placeholder="{{lbl.search}}..." />
             </div>
-            <div class="dropdown pull-right">
+            <div class="dropdown float-right">
                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{lbl.all}}<i class="fa fa-angle-down"></i></button>
                 <ul class="dropdown-menu dropdown-menu-filter">
                     <li><a id="fltr-all" data-value="{{lbl.all}}" ng-click="gridFilter('IsApproved','all','all')">      {{lbl.all}}</a></li>
@@ -50,7 +50,7 @@
                     <li><a id="fltr-png" data-value="{{lbl.pingbacks}}" ng-click="gridFilter('Email','pingback','png')">{{lbl.pingbacks}}</a></li>
                 </ul>
             </div>
-            <a href="#/content/comments/filters" class="btn btn-success btn-sm btn-hasicon pull-right"><i class="fa fa-filter"></i>{{lbl.filters}}</a>
+            <a href="#/content/comments/filters" class="btn btn-success btn-sm btn-hasicon float-right"><i class="fa fa-filter"></i>{{lbl.filters}}</a>
         </div>
     </div>
     <div class="content-inner">
@@ -73,8 +73,8 @@
                     </td>
                     <td class="item-avatar"><img ng-src="{{item.Avatar}}" alt="{{item.Author}}" title="{{item.Author}}" /></td>
                     <td class="item-title">
-                        <a title="click to reply" ng-click="showEditForm(item.Id)" href=""> {{item.Title}}</a>
-                        <a title="click to view" class="external-link" target="_blank" href="{{item.RelativeLink}}"> <i class="fa fa-external-link"></i> </a>
+                        <a class="float-left" title="click to reply" ng-click="showEditForm(item.Id)" href="">{{item.Title}}</a>
+                        <a title="click to view" class="external-link float-right" target="_blank" href="{{item.RelativeLink}}"><i class="fas fa-external-link-alt"></i></a>
                     </td>
                     <td class="item-date" title="{{item.DateCreated}}">{{item.DateCreated.substring(0,10)}}</td>
                     <td class="item-author"><span>{{item.Author}}</span></td>
@@ -84,10 +84,12 @@
             </tbody>
         </table>
         <div class="table-item-empty" id="tr-spinner"><div id="div-spinner"><i class="fa fa-spinner fa-spin"></i></div></div>
-        <ul class="pagination" ng-if="items.length > itemsPerPage">
-            <li data-ng-class="{disabled: currentPage == 0}"><a data-ng-click="prevPage()" title="{{lbl.prev}}"><i class="fa fa-angle-left"></i></a></li>
-            <li data-ng-repeat="n in range(pagedItems.length)" data-ng-class="{active: n == currentPage}" data-ng-click="setPage()"><a data-ng-bind="n + 1">1</a></li>
-            <li data-ng-class="{disabled: currentPage == pagedItems.length - 1}"><a data-ng-click="nextPage()" title="{{lbl.next}}"><i class="fa fa-angle-right"></i></a></li>
-        </ul>
+        <nav aria-label="navigation">
+            <ul class="pagination m-0" ng-if="items.length > itemsPerPage">
+                <li class="page-item" data-ng-class="{disabled: currentPage == 0}"><a class="page-link" data-ng-click="prevPage()" title="{{lbl.prev}}">{{lbl.prev}}</a></li>
+                <li class="page-item" data-ng-repeat="n in range(pagedItems.length)" data-ng-class="{active: n == currentPage}" data-ng-click="setPage()"><a class="page-link" data-ng-bind="n + 1">1</a></li>
+                <li class="page-item" data-ng-class="{disabled: currentPage == pagedItems.length - 1}"><a class="page-link" data-ng-click="nextPage()" title="{{lbl.next}}">{{lbl.next}}</a></li>
+            </ul>
+        </nav>
     </div>
 </div>

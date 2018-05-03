@@ -14,37 +14,35 @@
     $scope.load = function () {
         spinOn();
         dataService.getItems('/api/lookups')
-        .success(function (data) {
-            angular.copy(data, $scope.lookups);
-            $scope.loadSettings();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingSettings);
-            spinOff();
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.lookups);
+                $scope.loadSettings();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingSettings);
+                spinOff();
+            });
     }
 
     $scope.loadSettings = function () {
         dataService.getItems('/api/settings')
-        .success(function (data) {
-            angular.copy(data, $scope.vm);
-            $scope.settings = $scope.vm.Settings;
-            $scope.timeZoneOptions = $scope.vm.TimeZones;
-            $scope.selectedLanguage = selectedOption($scope.lookups.Cultures, $scope.settings.Culture);
-            $scope.selectedDeskTheme = selectedOption($scope.lookups.InstalledThemes, $scope.settings.DesktopTheme);
-            $scope.selfRegistrationInitialRole = selectedOption($scope.lookups.SelfRegisterRoles, $scope.settings.SelfRegistrationInitialRole);
-            $scope.selFeedFormat = selectedOption($scope.vm.FeedOptions, $scope.settings.SyndicationFormat);
-            $scope.selCloseDays = selectedOption($scope.vm.CloseDaysOptions, $scope.settings.DaysCommentsAreEnabled);
-            $scope.selCommentsPerPage = selectedOption($scope.vm.CommentsPerPageOptions, $scope.settings.CommentsPerPage);
-            $scope.selTimeZone = selectedOption($scope.timeZoneOptions, $scope.settings.TimeZoneId);
-            $scope.selFacebookLanguage = selectedOption($scope.vm.FacebookLanguages, $scope.settings.FacebookLanguage);
-            $scope.setCommentProviders($scope.settings.CommentProvider);
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingSettings);
-            spinOff();
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.vm);
+                $scope.settings = $scope.vm.Settings;
+                $scope.timeZoneOptions = $scope.vm.TimeZones;
+                $scope.selectedLanguage = selectedOption($scope.lookups.Cultures, $scope.settings.Culture);
+                $scope.selectedDeskTheme = selectedOption($scope.lookups.InstalledThemes, $scope.settings.DesktopTheme);
+                $scope.selfRegistrationInitialRole = selectedOption($scope.lookups.SelfRegisterRoles, $scope.settings.SelfRegistrationInitialRole);
+                $scope.selFeedFormat = selectedOption($scope.vm.FeedOptions, $scope.settings.SyndicationFormat);
+                $scope.selCloseDays = selectedOption($scope.vm.CloseDaysOptions, $scope.settings.DaysCommentsAreEnabled);
+                $scope.selCommentsPerPage = selectedOption($scope.vm.CommentsPerPageOptions, $scope.settings.CommentsPerPage);
+                $scope.selTimeZone = selectedOption($scope.timeZoneOptions, $scope.settings.TimeZoneId);
+                $scope.selFacebookLanguage = selectedOption($scope.vm.FacebookLanguages, $scope.settings.FacebookLanguage);
+                $scope.setCommentProviders($scope.settings.CommentProvider);
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingSettings);
+                spinOff();
+            });
     }
 
     $scope.save = function () {
@@ -64,11 +62,10 @@
         $scope.settings.txtErrorTitle = $scope.txtErrorTitle;
 
         dataService.updateItem("/api/settings", $scope.settings)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.settingsUpdated);
-            $scope.load();
-        })
-        .error(function () { toastr.error($rootScope.lbl.updateFailed); });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.settingsUpdated);
+                $scope.load();
+            }, function () { toastr.error($rootScope.lbl.updateFailed); });
     }
 
     $scope.exportToXml = function () {
@@ -86,37 +83,34 @@
         var fd = new FormData();
         fd.append("file", files[0]);
         dataService.uploadFile("/api/upload?action=import", fd)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.importedFromBlogML);
-            spinOff();
-        })
-        .error(function () { toastr.error($rootScope.lbl.importFailed); spinOff(); });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.importedFromBlogML);
+                spinOff();
+            }, function () { toastr.error($rootScope.lbl.importFailed); spinOff(); });
     }
 
     $scope.testEmail = function () {
         dataService.updateItem("/api/settings?action=testEmail", $scope.settings)
-        .success(function (data) {
-            if (data) {
-                toastr.error(data);
-            }
-            else {
-                toastr.success($rootScope.lbl.completed);
-            }
-        })
-        .error(function () { toastr.error($rootScope.lbl.failed); });
+            .then(function (response) {
+                if (response.data) {
+                    toastr.error(response.data);
+                }
+                else {
+                    toastr.success($rootScope.lbl.completed);
+                }
+            }, function () { toastr.error($rootScope.lbl.failed); });
     }
 
     $scope.clearCache = function () {
         dataService.updateItem("/api/settings?action=clearCache", $scope.settings)
-        .success(function (data) {
-            if (data) {
-                toastr.error(data);
-            }
-            else {
-                toastr.success($rootScope.lbl.completed);
-            }
-        })
-        .error(function () { toastr.error($rootScope.lbl.failed); });
+            .then(function (response) {
+                if (response.data) {
+                    toastr.error(response.data);
+                }
+                else {
+                    toastr.success($rootScope.lbl.completed);
+                }
+            }, function () { toastr.error($rootScope.lbl.failed); });
     }
 
     $scope.loadTheme = function () {

@@ -2,7 +2,7 @@
 @using BlogEngine.Core
 @{
     Layout = "~/admin/themes/standard/layout.cshtml";
-    if (!Security.IsAuthorizedTo(Rights.EditOwnPosts))
+    if (Security.IsAuthorizedTo(Rights.EditOwnPosts) == false)
     {
         Security.RedirectForUnauthorizedRequest();
     }
@@ -14,8 +14,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
                         <h4 class="modal-title">Other Features</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
                     </div>
                     <div class="modal-body modal-roles">
                         <div class="form-group">
@@ -43,8 +43,8 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="focusInput=false"><i class="fa fa-times"></i></button>
                             <h4 class="modal-title">{{lbl.addNewCategory}}</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="focusInput=false"><i class="fa fa-times"></i></button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
@@ -74,8 +74,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="focusInput=false"><i class="fa fa-times"></i></button>
                         <h4 class="modal-title">{{lbl.add}} {{lbl.customFields}}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="focusInput=false"><i class="fa fa-times"></i></button>
                     </div>
                     <div class="modal-body modal-roles">
                         <div class="form-group">
@@ -96,20 +96,20 @@
         </div>
         @* please do not remove this main-header we used it in mobile size. *@
         <div class="main-header clearfix">
-            <span ng-if="post.Id"><a href="{{post.RelativeLink}}" class="btn btn-sm btn-hasicon btn-success pull-left" target="_blank"><i class="fa fa-eye"></i> {{lbl.goToPost}}</a></span>
-            <span ng-if="post.Id && post.IsPublished"><a href="#" class="btn btn-sm btn-hasicon btn-warning pull-left" ng-click="publish(false)"><i class="fa fa-undo"></i> {{lbl.unpublish}}</a></span>
-            <a ng-if="status() < 2" href="#" data-ng-click="publish(true)" class="btn btn-sm btn-hasicon btn-success pull-left"><i class="fa fa-check"></i>{{lbl.publish}}</a>
-            <a ng-if="status() == 2" href="#" data-ng-click="save()" class="btn btn-sm btn-hasicon btn-primary pull-left"><i class="fa fa-save"></i>{{lbl.save}}</a>
-            <span ng-if="status() < 2"><a href="#" ng-click="save()" class="btn btn-sm btn-hasicon btn-primary pull-left"><i class="fa fa-save"></i> {{lbl.save}}</a></span>
-            <a href="" onclick="window.history.back()" class="btn btn-sm btn-hasicon btn-default pull-left"><i class="fa fa-ban"></i>{{lbl.cancel}}</a>
-            <span id="spinner" class="loaded pull-right"><i class='fa fa-spinner fa-spin fa-large'></i></span>
+            <span ng-if="post.Id"><a href="{{post.RelativeLink}}" class="btn btn-sm btn-hasicon btn-success float-left" target="_blank"><i class="fa fa-eye"></i> {{lbl.goToPost}}</a></span>
+            <span ng-if="post.Id && post.IsPublished"><a href="#" class="btn btn-sm btn-hasicon btn-warning float-left" ng-click="publish(false)"><i class="fa fa-undo"></i> {{lbl.unpublish}}</a></span>
+            <a ng-if="status() < 2" href="#" data-ng-click="publish(true)" class="btn btn-sm btn-hasicon btn-success float-left"><i class="fa fa-check"></i>{{lbl.publish}}</a>
+            <a ng-if="status() == 2" href="#" data-ng-click="save()" class="btn btn-sm btn-hasicon btn-primary float-left"><i class="fa fa-save"></i>{{lbl.save}}</a>
+            <span ng-if="status() < 2"><a href="#" ng-click="save()" class="btn btn-sm btn-hasicon btn-primary float-left"><i class="fa fa-save"></i> {{lbl.save}}</a></span>
+            <a href="" onclick="window.history.back()" class="btn btn-sm btn-hasicon btn-default float-left"><i class="fa fa-ban"></i>{{lbl.cancel}}</a>
+            <span id="spinner" class="loaded float-right"><i class='fa fa-spinner fa-spin fa-large'></i></span>
         </div>
         <div class="content-inner">
             <form id="form" action="">
                 <div class="newpost-wrapper">
                     <div class="newpost-content">
                         <div class="newpost-title"><input type="text" id="txtTitle" name="txtTitle" autocomplete="off" placeholder="{{lbl.titleOfPost}}..." class="form-control" data-ng-model="post.Title" /></div>
-                        <div class="editor-wrapper">@RenderPage(BlogConfig.DefaultEditor)</div>
+                        <div class="editor-wrapper">@RenderPage("~/Resources/[tinymce]/editor.cshtml")</div>
                         <div class="newpost-widget" data-ng-show="lookups.PostOptions.ShowSlug">
                             <label class="newpost-widget-title">{{lbl.slug}}</label>
                             <input type="text" class="form-control form-control-sm" id="txtSlug" data-ng-model="post.Slug" />
@@ -133,7 +133,7 @@
                             </div>
                             <div class="newpost-widget newpost-widget-categories">
                                 <label class="newpost-widget-title">{{lbl.categories}}</label>
-                                <a angular-tooltip tooltip="lbl.add" class="pull-right add-cat" ng-click="addCagegory()"><i class="fa fa-plus fa-sm"></i></a>
+                                <a angular-tooltip tooltip="lbl.add" class="float-right add-cat" ng-click="addCategory()"><i class="fa fa-plus fa-sm"></i></a>
                                 <ul class="categories-list">
                                     <li ng-repeat="cat in lookups.CategoryList"><label><input type="checkbox" id="cat-{{cat.OptionValue}}" data-ng-model="cat.IsSelected" /> {{cat.OptionName}}</label></li>
                                     <li ng-if="lookups.CategoryList.length == 0" class="item-empty">{{lbl.empty}}</li>
@@ -154,9 +154,7 @@
                                 <select id="selAuthors" ng-disabled="usageScenario != 'multiusers'" class="form-control  form-control-sm" data-ng-options="o.OptionName for o in lookups.AuthorList" data-ng-model="selectedAuthor"></select>
                             </div>
                             <div class="newpost-widget" data-ng-show="lookups.PostOptions.ShowCustomFields">
-                                <label class="newpost-widget-title">
-                                    {{lbl.customFields}}
-                                </label>
+                                <label class="newpost-widget-title">{{lbl.customFields}}</label>
                                 <button type="button" class="btn btn-default btn-sm btn-block" id="btnCustomFields" ng-click="showCustom()" data-toggle="modal">{{lbl.add}}</button>
                                 <div id="frm-custom-edit" ng-if="customFields && customFields.length > 0">
                                     <div class="newpost-custom-fields" data-ng-repeat="item in customFields">
@@ -170,7 +168,7 @@
                                 <label class="enable-comment"><input type="checkbox" name="ckEnableComments" data-ng-model="post.HasCommentsEnabled" />{{lbl.enableComments}}</label>
                             </div>
                             <hr />
-                            <a class="btn btn-sm btn-hasicon btn-block btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-sliders"></i> Customize</a>
+                            <a class="btn btn-sm btn-hasicon btn-block btn-default" data-toggle="modal" data-target="#myModal"><i class="fas fa-sliders-h"></i>Customize</a>
                         </div>
                     </div>
                 </div>
@@ -178,11 +176,4 @@
         </div>
     </div>
 </div>
-@Scripts.Render("~/scripts/wysiwyg")
-@{
-    if (BlogConfig.DefaultEditor == "~/admin/editors/tinymce/editor.cshtml")
-    {
-        <script src="~/admin/editors/tinymce/tinymce.min.js"></script>
-        <script src="~/admin/editors/tinymce/editor.js"></script>
-    }
-}
+@Scripts.Render("~/(js,wysiwyg)")

@@ -18,44 +18,41 @@ angular.module('blogAdmin').controller('BlogListController', ["$rootScope", "$sc
         $scope.modalTitle = $rootScope.lbl.editExistingBlog;
         spinOn();
         dataService.getItems('/api/blogs/' + id)
-        .success(function (data) {
-            angular.copy(data, $scope.editItem);
-            $("#modal-edit").modal();
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingBlog);
-            spinOff();
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.editItem);
+                $("#modal-edit").modal();
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingBlog);
+                spinOff();
+            });
     }
 
     $scope.load = function (callback) {
         dataService.getItems('/api/blogs', { take: 0, skip: 0, filter: "1 == 1", order: "Name" })
-        .success(function (data) {
-            angular.copy(data, $scope.items);
-            gridInit($scope, $filter);
-            callback;
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingBlogs);
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.items);
+                gridInit($scope, $filter);
+                callback;
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingBlogs);
+            });
     }
 
     $scope.save = function () {
         spinOn();
         dataService.updateItem("/api/blogs/update/item", $scope.editItem)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.blogSaved);
-            $scope.load();
-            spinOff();
-            $("#modal-edit").modal('hide');
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failedAddingNewRole);
-            spinOff();
-            $("#modal-edit").modal('hide');
-        });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.blogSaved);
+                $scope.load();
+                spinOff();
+                $("#modal-edit").modal('hide');
+            }, function () {
+                toastr.error($rootScope.lbl.failedAddingNewRole);
+                spinOff();
+                $("#modal-edit").modal('hide');
+            });
     }
 
     $scope.saveNew = function () {
@@ -64,20 +61,19 @@ angular.module('blogAdmin').controller('BlogListController', ["$rootScope", "$sc
         }
         spinOn();
         dataService.addItem("/api/blogs", $scope.newItem)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.blogAddedShort);
-            $scope.newItem = {};
-            $scope.load();
-            spinOff();
-            $("#modal-add").modal('hide');
-            $scope.focusInput = false;
-        })
-        .error(function (data) {
-            toastr.error(data);
-            spinOff();
-            $("#modal-add").modal('hide');
-            $scope.focusInput = false;
-        });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.blogAddedShort);
+                $scope.newItem = {};
+                $scope.load();
+                spinOff();
+                $("#modal-add").modal('hide');
+                $scope.focusInput = false;
+            }, function (response) {
+                toastr.error(response.data);
+                spinOff();
+                $("#modal-add").modal('hide');
+                $scope.focusInput = false;
+            });
     }
 
     $scope.processChecked = function (action, itemsChecked) {

@@ -15,14 +15,13 @@
     $scope.load = function () {
         var p = { take: 0, skip: 0, postId: "" };
         dataService.getItems('/api/tags', p)
-        .success(function (data) {
-            angular.copy(data, $scope.items);
-            gridInit($scope, $filter);
-            spinOff();
-        })
-        .error(function (data) {
-            toastr.success($rootScope.lbl.errorGettingTags);
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.items);
+                gridInit($scope, $filter);
+                spinOff();
+            }, function (data) {
+                toastr.success($rootScope.lbl.errorGettingTags);
+            });
     }
 
     $scope.load();
@@ -36,12 +35,11 @@
     $scope.save = function () {
         if ($scope.tag) {
             dataService.updateItem("/api/tags/update/" + $scope.id, { OldTag: $scope.id, NewTag: $scope.tag })
-           .success(function (data) {
-               toastr.success($rootScope.lbl.tagUpdated);
-               $scope.load();
-               gridInit($scope, $filter);
-           })
-           .error(function () { toastr.error($rootScope.lbl.updateFailed); });
+                .then(function (data) {
+                    toastr.success($rootScope.lbl.tagUpdated);
+                    $scope.load();
+                    gridInit($scope, $filter);
+                }, function () { toastr.error($rootScope.lbl.updateFailed); });
         }
         $("#modal-add-tag").modal('hide');
         $scope.focusInput = false;

@@ -14,8 +14,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
                         <h4 class="modal-title">Other Features</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
                     </div>
                     <div class="modal-body modal-roles">
                         <div class="form-group">
@@ -39,8 +39,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="focusInput=false"><i class="fa fa-times"></i></button>
                         <h4 class="modal-title">{{lbl.add}} {{lbl.customFields}}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="focusInput=false"><i class="fa fa-times"></i></button>
                     </div>
                     <div class="modal-body modal-roles">
                         <div class="form-group">
@@ -61,20 +61,20 @@
         </div>
         @* please do not remove this main-header we used it in mobile size. *@
         <div class="main-header clearfix">
-            <span ng-if="page.Id"><a href="{{page.RelativeLink}}" class="btn btn-success btn-sm btn-hasicon pull-left" target="_blank"><i class="fa fa-eye"></i> {{lbl.goToPage}}</a></span>
-            <span ng-if="page.Id && page.IsPublished"><a href="#" class="btn btn-sm btn-warning btn-hasicon pull-left" ng-click="publish(false)"><i class="fa fa-undo"></i> {{lbl.unpublish}}</a></span>
-            <a ng-if="status() < 2" href="#" data-ng-click="publish(true)" class="btn btn-sm btn-success btn-hasicon pull-left"><i class="fa fa-check"></i>{{lbl.publish}}</a>
-            <a ng-if="status() == 2" href="#" data-ng-click="save()" class="btn btn-primary btn-sm btn-hasicon pull-left"><i class="fa fa-save"></i>{{lbl.save}}</a>
-            <span ng-if="status() < 2"><a href="#" ng-click="save()" class="btn btn-sm btn-primary btn-hasicon pull-left"><i class="fa fa-save"></i> {{lbl.save}}</a></span>
-            <a href="" onclick="window.history.back()" class="btn btn-default btn-sm btn-hasicon pull-left"><i class="fa fa-ban"></i>{{lbl.cancel}}</a>
-            <span id="spinner" class="loaded pull-left"><i class='fa fa-spinner fa-spin fa-large'></i></span>
+            <span ng-if="page.Id"><a href="{{page.RelativeLink}}" class="btn btn-success btn-sm btn-hasicon float-left" target="_blank"><i class="fa fa-eye"></i> {{lbl.goToPage}}</a></span>
+            <span ng-if="page.Id && page.IsPublished"><a href="#" class="btn btn-sm btn-warning btn-hasicon float-left" ng-click="publish(false)"><i class="fa fa-undo"></i> {{lbl.unpublish}}</a></span>
+            <a ng-if="status() < 2" href="#" data-ng-click="publish(true)" class="btn btn-sm btn-success btn-hasicon float-left"><i class="fa fa-check"></i>{{lbl.publish}}</a>
+            <a ng-if="status() == 2" href="#" data-ng-click="save()" class="btn btn-primary btn-sm btn-hasicon float-left"><i class="fa fa-save"></i>{{lbl.save}}</a>
+            <span ng-if="status() < 2"><a href="#" ng-click="save()" class="btn btn-sm btn-primary btn-hasicon float-left"><i class="fa fa-save"></i> {{lbl.save}}</a></span>
+            <a href="" onclick="window.history.back()" class="btn btn-default btn-sm btn-hasicon float-left"><i class="fa fa-ban"></i>{{lbl.cancel}}</a>
+            <span id="spinner" class="loaded float-left"><i class='fa fa-spinner fa-spin fa-large'></i></span>
         </div>
         <div class="content-inner">
             <form id="form" action="">
                 <div class="newpage-wrapper">
                     <div class="newpage-content">
                         <div class="newpage-title"><input type="text" id="txtTitle" name="txtTitle" autocomplete="off" placeholder="{{lbl.titleOfPage}}..." class="form-control" data-ng-model="page.Title" /></div>
-                        <div class="editor-wrapper">@RenderPage(BlogConfig.DefaultEditor)</div>
+                        <div class="editor-wrapper">@RenderPage("~/Resources/[tinymce]/editor.cshtml")</div>
                         <div class="newpage-widget" data-ng-show="lookups.PageOptions.ShowSlug">
                             <label class="newpage-widget-title">{{lbl.slug}}</label>
                             <input type="text" class="form-control form-control-sm" id="txtSlug" data-ng-model="page.Slug" />
@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                             <hr />
-                            <a class="btn btn-sm btn-hasicon btn-block btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-sliders"></i> Customize</a>
+                            <a class="btn btn-sm btn-hasicon btn-block btn-default" data-toggle="modal" data-target="#myModal"><i class="fas fa-sliders-h"></i>Customize</a>
                         </div>
                     </div>
                 </div>
@@ -138,11 +138,4 @@
         </div>
     </div>
 </div>
-@Scripts.Render("~/scripts/wysiwyg")
-@{
-    if (BlogConfig.DefaultEditor == "~/admin/editors/tinymce/editor.cshtml")
-    {
-        <script src="~/admin/editors/tinymce/tinymce.min.js"></script>
-        <script src="~/admin/editors/tinymce/editor.js"></script>
-    }
-}
+@Scripts.Render("~/(js,wysiwyg)")

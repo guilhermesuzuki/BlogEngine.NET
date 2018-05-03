@@ -3,9 +3,9 @@
         sass: {
             dist: {
                 options: {
-                    style: 'compressed',
+                    style: 'compact',
                     noCache: true,
-                    sourcemap: 'none'
+                    sourcemap: 'none',
                 },
                 files: {
                     'src/css/styles.min.css': 'src/scss/styles.scss',
@@ -19,7 +19,8 @@
             }
         }
     });
-    grunt.loadNpmTasks('grunt-contrib-sass');
+
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.registerTask('default', ['watch']);
 };

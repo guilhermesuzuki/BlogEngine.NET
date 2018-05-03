@@ -39,12 +39,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
-    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Resources/[bootstrap]/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Resources/[fontawesome]/css/fontawesome.css">
+    <link rel="stylesheet" href="~/Resources/[fontawesome]/css/fa-solid.css">
+    <link rel="stylesheet" href="~/Resources/[fontawesome]/css/fa-brands.css">
     <link rel="stylesheet" href="~/admin/themes/standard/css/styles.css">
 </head>
 <body class="widget-edit">
-    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Resources/jquery.js"></script>
     <div class="widget-edit-blogroll">
         <form method="post" id="frm" name="frm">
             <div class="form-group">
@@ -139,8 +141,8 @@
                         {
                             <tr>
                                 <td class="item-title">
-                                    <a title="@roll.Title" href="#" onclick="submitForm('@roll.Id', 'load')" class="text-ellipsis pull-left">@roll.Title</a>
-                                    <a title="@roll.FeedUrl" class="external-link pull-right" target="_blank" href="@roll.FeedUrl"><i class="fa fa-external-link"></i></a>
+                                    <a title="@roll.Title" href="#" onclick="submitForm('@roll.Id', 'load')" class="text-ellipsis float-left">@roll.Title</a>
+                                    <a title="@roll.FeedUrl" class="external-link float-right" target="_blank" href="@roll.FeedUrl"><i class="fas fa-external-link-alt"></i></a>
                                 </td>
                                 <td>@roll.Description</td>
                                 <td>@roll.Xfn</td>

@@ -1,0 +1,25 @@
+{
+  "name": "json2-js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/bramski/JSON-js",
+  "authors": [
+    "bramski <bramski@gmail.com>"
+  ],
+  "description": "JSON encoders/Decoders.",
+  "main": "json2.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "json",
+    "json2"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

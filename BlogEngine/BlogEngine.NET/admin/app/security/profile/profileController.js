@@ -1,6 +1,6 @@
 ﻿angular.module('blogAdmin').controller('ProfileController', ["$rootScope", "$scope", "$filter", "dataService", function ($rootScope, $scope, $filter, dataService) {
     $scope.user = {};
-    $scope.noAvatar = SiteVars.ApplicationRelativeWebRoot + "Content/images/blog/noavatar.jpg";
+    $scope.noAvatar = SiteVars.ApplicationRelativeWebRoot + "Resources/images/blog/noavatar.jpg";
     $scope.photo = $scope.noAvatar;
     $scope.UserVars = UserVars;
 
@@ -11,33 +11,31 @@
     $scope.load = function () {
         spinOn();
         dataService.getItems('/api/users/' + UserVars.Name)
-        .success(function (data) {
-            angular.copy(data, $scope.user);
-            $scope.loadCustom();
-            $scope.setPhoto();
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingUser);
-            spinOff();
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.user);
+                $scope.loadCustom();
+                $scope.setPhoto();
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingUser);
+                spinOff();
+            });
     }
 
     $scope.save = function () {
         spinOn();
         dataService.updateItem("/api/users/saveprofile/item", $scope.user)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.userUpdatedShort);
-            if ($scope.customFields && $scope.customFields.length > 0) {
-                $scope.updateCustom();
-            }
-            $scope.load();
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.updateFailed);
-            spinOff();
-        });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.userUpdatedShort);
+                if ($scope.customFields && $scope.customFields.length > 0) {
+                    $scope.updateCustom();
+                }
+                $scope.load();
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.updateFailed);
+                spinOff();
+            });
     }
 
     $scope.removePicture = function () {
@@ -50,11 +48,10 @@
         fd.append("file", files[0]);
 
         dataService.uploadFile("/api/upload?action=profile", fd)
-        .success(function (data) {
-            $scope.user.Profile.PhotoUrl = data;
-            $scope.save();
-        })
-        .error(function () { toastr.error($rootScope.lbl.failed); });
+            .then(function (response) {
+                $scope.user.Profile.PhotoUrl = response.data;
+                $scope.save();
+            }, function () { toastr.error($rootScope.lbl.failed); });
     }
 
     $scope.setPhoto = function () {
@@ -80,12 +77,11 @@
         $scope.customFields = [];
 
         dataService.getItems('/api/customfields', { filter: 'CustomType == "PROFILE"' })
-        .success(function (data) {
-            angular.copy(data, $scope.customFields);
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingCustomFields);
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.customFields);
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingCustomFields);
+            });
     }
 
     $scope.saveCustom = function () {
@@ -99,26 +95,24 @@
             return false;
         }
         dataService.addItem("/api/customfields", customField)
-        .success(function (data) {
-            toastr.success('New item added');
-            $scope.load();
-            $("#modal-custom").modal('hide');
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.updateFailed);
-            $("#modal-custom").modal('hide');
-        });
+            .then(function (data) {
+                toastr.success('New item added');
+                $scope.load();
+                $("#modal-custom").modal('hide');
+            }, function () {
+                toastr.error($rootScope.lbl.updateFailed);
+                $("#modal-custom").modal('hide');
+            });
     }
 
     $scope.updateCustom = function () {
         dataService.updateItem("/api/customfields", $scope.customFields)
-        .success(function (data) {
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.updateFailed);
-            spinOff();
-        });
+            .then(function (data) {
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.updateFailed);
+                spinOff();
+            });
     }
 
     $scope.deleteCustom = function (key, objId) {
@@ -129,15 +123,14 @@
         };
         spinOn();
         dataService.deleteItem("/api/customfields", customField)
-        .success(function (data) {
-            toastr.success("Item deleted");
-            spinOff();
-            $scope.load();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.couldNotDeleteItem);
-            spinOff();
-        });
+            .then(function (data) {
+                toastr.success("Item deleted");
+                spinOff();
+                $scope.load();
+            }, function () {
+                toastr.error($rootScope.lbl.couldNotDeleteItem);
+                spinOff();
+            });
     }
     $(document).ready(function () {
         bindCommon();

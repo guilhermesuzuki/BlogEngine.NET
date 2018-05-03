@@ -3,13 +3,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="closeEditForm()"><i class="fa fa-times"></i></button>
                     <div class="input-group">
                         <input type="text" class="form-control" id="txtWidgetTitle" name="txtWidgetTitle" value="" />
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-success" ng-click="updateTitle()">{{lbl.changeName}}</button>
                         </div>
                     </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="closeEditForm()"><i class="fa fa-times"></i></button>
                 </div>
                 <div class="modal-body">
                     <iframe id="settingsFrame" ng-src="{{editSrc}}"></iframe>
@@ -38,7 +38,7 @@
                     <div ng-if="package.OnlineVersion.length > 0 && package.OnlineVersion > package.LocalVersion" class="item-alert">
                         <div class="alert alert-warning">
                             Update available for this theme.
-                            <button ng-click="upgradePackage(package.Id)" class="btn btn-sm btn-warning pull-right">Update</button>
+                            <button ng-click="upgradePackage(package.Id)" class="btn btn-sm btn-warning float-right">Update</button>
                         </div>
                     </div>
                     <div class="modal-widget-image">
@@ -56,14 +56,14 @@
                                     <textarea rows="3" maxlength="450" class="form-control" id="txtReview" placeholder="{{lbl.typeHere}}..."></textarea>
                                 </div>
                                 <div class="clearfix">
-                                    <div class="star-rating pull-left">
+                                    <div class="star-rating float-left">
                                         <input type="radio" name="rated" value="1" ng-checked="selectedRating == 1" ng-click="setRating(1)"><i></i>
                                         <input type="radio" name="rated" value="2" ng-checked="selectedRating == 2" ng-click="setRating(2)"><i></i>
                                         <input type="radio" name="rated" value="3" ng-checked="selectedRating == 3" ng-click="setRating(3)"><i></i>
                                         <input type="radio" name="rated" value="4" ng-checked="selectedRating == 4" ng-click="setRating(4)"><i></i>
                                         <input type="radio" name="rated" value="5" ng-checked="selectedRating == 5" ng-click="setRating(5)"><i></i>
                                     </div>
-                                    <button data-ng-click="submitRating()" class="pull-right btn btn-success btn-sm">Submit</button>
+                                    <button data-ng-click="submitRating()" class="float-right btn btn-success btn-sm">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -85,9 +85,9 @@
         </div>
     </div>
     <div class="main-header clearfix">
-        <h2 class="page-title pull-left">{{lbl.widgets}}</h2>
-        <a ng-if="IsPrimary" href="{{SiteVars.RelativeWebRoot}}admin/#/custom/widgets/gallery" class="btn btn-success btn-sm btn-hasicon pull-left"><i class="fa fa-plus"></i>{{lbl.theNew}}</a>
-        <button type="button" ng-click="save()" class="btn btn-success btn-sm btn-hasicon pull-left"><i class="fa fa-check"></i>{{lbl.save}}</button>
+        <h2 class="page-title float-left">{{lbl.widgets}}</h2>
+        <a ng-if="IsPrimary" href="{{SiteVars.RelativeWebRoot}}admin/#/custom/widgets/gallery" class="btn btn-success btn-sm btn-hasicon float-left"><i class="fa fa-plus"></i>{{lbl.theNew}}</a>
+        <button type="button" ng-click="save()" class="btn btn-success btn-sm btn-hasicon float-left"><i class="fa fa-check"></i>{{lbl.save}}</button>
     </div>
     <div class="content-inner">
         <div class="row">
@@ -96,11 +96,11 @@
                 <ul class="widgets-list">
                     <li class="draggable" ng-repeat="iw in vm.AvailableWidgets" draggable="iw" draggable-target=".sortable">
                         {{ iw.Title }}
-                        <div class="item-buttons pull-right">
+                        <div class="item-buttons float-right">
                             <button ng-if="iw.ShowUnistall" ng-click="uninstallPackage(iw.Id)" title="{{lbl.remove}}">
                                 <i class="fa fa-trash"></i>
                             </button>
-                            <button class="pull-right" ng-click="loadInfoForm(iw.Id, iw.Name, iw.Title, widgetZones.titles[0])" title="{{lbl.information}}">
+                            <button class="float-right" ng-click="loadInfoForm(iw.Id, iw.Name, iw.Title, widgetZones.titles[0])" title="{{lbl.information}}">
                                 <i class="fa fa-info-circle"></i>
                             </button>
                         </div>
@@ -115,7 +115,7 @@
                         <li class="ui-state-default" ng-repeat="item in widgetZones.list1 track by item.Id">
                             {{item.Title}}
                             <div class="item-buttons">
-                                <button ng-click="loadEditForm(item.Id, item.Name, item.Title, widgetZones.titles[0])" title="{{lbl.edit}}"><i class="fa fa-pencil"></i></button>
+                                <button ng-click="loadEditForm(item.Id, item.Name, item.Title, widgetZones.titles[0])" title="{{lbl.edit}}"><i class="fas fa-edit"></i></button>
                                 <button ng-click="deleteItem(item.Id, widgetZones.list1, widgetZones.titles[0])" title="{{lbl.remove}}"><i class="fa fa-trash"></i></button>
                             </div>
                         </li>

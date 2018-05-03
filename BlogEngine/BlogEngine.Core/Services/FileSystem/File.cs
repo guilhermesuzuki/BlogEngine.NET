@@ -50,17 +50,29 @@ namespace BlogEngine.Core.FileSystem
         /// <summary>
         /// list of valid image extensions
         /// </summary>
-        private string[] ImageExtensnios = { ".jpg", ".png", ".jpeg", ".tiff", ".gif", ".bmp" };
-        #endregion
+        private string[] ImageExtensions = { ".jpg", ".png", ".jpeg", ".tiff", ".gif", ".bmp" };
 
-        #region Properties
-        /// <summary>
-        /// Gets the File Contents, Lazy loaded
-        /// </summary>
-        /// <remarks>
-        /// set accessor set to internal
-        /// </remarks>
-        public byte[] FileContents
+		/// <summary>
+		/// list of valid video extensions
+		/// </summary>
+		private string[] VideoExtensions = {
+			".webm", ".mkv", ".flv", ".vob", ".ogv", ".ogg", ".drc", ".gif", ".gifv",
+			".mng", ".avi", ".mov", ".qt", ".wmv", ".yuv", ".rm", ".rmv", ".asf",
+			".asf", ".amv", ".mp4", ".m4p", ".m4v", ".mpg", ".mp2", ".mpeg", ".mpe", ".mpv",
+			".mpg", ".mpeg", ".m2v", ".m4v", ".svi", ".3gp", ".3g2", ".mxf", ".roq", ".nsv",
+			".flv", ".f4v", ".f4p", ".f4a", ".f4b",
+			};
+
+		#endregion
+
+		#region Properties
+		/// <summary>
+		/// Gets the File Contents, Lazy loaded
+		/// </summary>
+		/// <remarks>
+		/// set accessor set to internal
+		/// </remarks>
+		public byte[] FileContents
         {
             get
             {
@@ -136,7 +148,7 @@ namespace BlogEngine.Core.FileSystem
         /// <summary>
         /// gets the full path, internale set. To change the path use rename methods
         /// </summary>
-        internal string FullPath
+        public string FullPath
         {
             get
             {
@@ -237,17 +249,28 @@ namespace BlogEngine.Core.FileSystem
         {
             get
             {
-                return ImageExtensnios.Any(x => x.ToLower() == this.Extension.ToLower());
+                return ImageExtensions.Any(x => x.ToLower() == this.Extension.ToLower());
             }
         }
 
-        /// <summary>
-        /// converts the object to the Image object and disposes of the original object. An exception will be thrown if the image is not of a file type.
-        /// </summary>
-        /// <remarks>
-        /// always compare the IsImage flag first before attempting a direct call to AsImage
-        /// </remarks>
-        public Image AsImage
+		/// <summary>
+		/// valdidates if this object is a video
+		/// </summary>
+		public bool IsVideo
+		{
+			get
+			{
+				return VideoExtensions.Any(x => x.ToLower() == this.Extension.ToLower());
+			}
+		}
+
+		/// <summary>
+		/// converts the object to the Image object and disposes of the original object. An exception will be thrown if the image is not of a file type.
+		/// </summary>
+		/// <remarks>
+		/// always compare the IsImage flag first before attempting a direct call to AsImage
+		/// </remarks>
+		public Image AsImage
         {
             get
             {

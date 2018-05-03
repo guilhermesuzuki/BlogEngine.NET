@@ -36,10 +36,10 @@ public class FileManagerController : ApiController
                 if (item.IsChecked)
                 {
                     if(item.FileType == FileType.File || item.FileType == FileType.Image)
-                        BlogService.DeleteFile(item.FullPath);
+                        BlogService.DeleteFile(item.FilePath);
 
                     if (item.FileType == FileType.Directory)
-                        BlogService.DeleteDirectory(item.FullPath);
+                        BlogService.DeleteDirectory(item.FilePath);
                 }
             }
         }
@@ -49,7 +49,7 @@ public class FileManagerController : ApiController
     [HttpPut]
     public HttpResponseMessage AddFolder(FileInstance folder)
     {
-        BlogService.CreateDirectory(folder.FullPath + "/" + folder.Name);
+        BlogService.CreateDirectory(folder.FilePath + "/" + folder.Name);
         return Request.CreateResponse(HttpStatusCode.OK);
     }
 

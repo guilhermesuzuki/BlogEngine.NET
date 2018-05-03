@@ -1,4 +1,6 @@
-﻿namespace BlogEngine.Core.Packaging
+﻿using System;
+
+namespace BlogEngine.Core.Packaging
 {
     /// <summary>
     /// Locally installed gallery package

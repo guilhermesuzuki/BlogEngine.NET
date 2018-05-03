@@ -1,0 +1,25 @@
+{
+  "name": "boostrap",
+  "authors": [
+    "mrthanh <thanhkhuatdac@gmail.com>"
+  ],
+  "description": "demo bootstrap Bower",
+  "main": "/",
+  "keywords": [
+    "fonticons"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/thanhkhuatdac/boostrap-4.0.2.git",
+  "ignore": [
+    "README.md"
+  ],
+  "_release": "83a30f705a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "83a30f705aa47daac16e1854d4a19a6cc0cf3b60"
+  },
+  "_source": "https://github.com/thanhkhuatdac/boostrap-4.0.2.git",
+  "_target": "*",
+  "_originalSource": "bootstrap-4.0.2"
+}

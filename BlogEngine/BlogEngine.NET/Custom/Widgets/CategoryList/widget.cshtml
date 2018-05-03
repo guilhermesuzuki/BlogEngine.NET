@@ -39,11 +39,11 @@
                     @if (showRssIcon == true)
                     {
                     <a rel="nofollow" href="@categoryUrl/feed/@Utils.RemoveIllegalCharacters(cat.Title)">
-                        <img class="rssButton" alt="RSS feed for SubBlog" src="~/Content/images/blog/rssButton.png">
+                        <img class="rssButton" alt="RSS feed for SubBlog" src="~/Resources/images/blog/rssButton.png">
                     </a>
                     }
                     <a title="Category: @cat.Title" href="@categoryUrl/@Utils.RemoveIllegalCharacters(cat.Title)">
-                        @cat.Title 
+                        <span>@cat.Title</span>
                         @if (showPostCnt)
                         {
                             <span>(@posts)</span>

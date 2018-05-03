@@ -106,14 +106,14 @@
         </div>
     </div>
     <div class="main-header clearfix">
-        <h2 class="page-title pull-left"> 
+        <h2 class="page-title float-left"> 
             {{lbl.blogs}}
         </h2>
         <div>
-            <button ng-click="modalNew()" class="btn btn-success btn-sm btn-hasicon pull-left"><i class="fa fa-plus"></i>{{lbl.theNew}}</button>
-            <button ng-click="processChecked('delete', itemsChecked())" ng-disabled="itemsChecked() === false" class="btn btn-danger btn-sm btn-hasicon pull-left"><i class="fa fa-trash"></i>{{lbl.doDelete}}</button>
+            <button ng-click="modalNew()" class="btn btn-success btn-sm btn-hasicon float-left"><i class="fa fa-plus"></i>{{lbl.theNew}}</button>
+            <button ng-click="processChecked('delete', itemsChecked())" ng-disabled="itemsChecked() === false" class="btn btn-danger btn-sm btn-hasicon float-left"><i class="fa fa-trash"></i>{{lbl.doDelete}}</button>
         </div>
-        <div class="search pull-right">
+        <div class="search float-right">
             <i class="fa fa-search"></i>
             <input type="text" ng-model="query" ng-change="search()" placeholder="{{lbl.search}}..." />
         </div>
@@ -134,8 +134,8 @@
                 <tr data-ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
                     <td><input type="checkbox" id="{{item.Slug}}" ng-model="item.IsChecked" data-ng-disabled="item.IsPrimary" /></td>
                     <td class="item-title">
-                        <a title="{{item.Name}}" href="" ng-click="modalEdit(item.Id)">{{item.Name}}</a>
-                        <a title="{{item.Name}}" class="external-link pull-right" target="_blank" href="{{item.RelativeWebRoot}}"><i class="fa fa-external-link"></i></a>
+                        <a title="{{item.Name}}" class="float-left" href="" ng-click="modalEdit(item.Id)">{{item.Name}}</a>
+                        <a title="{{item.Name}}" class="external-link float-right" target="_blank" href="{{item.RelativeWebRoot}}"><i class="fas fa-external-link-alt"></i></a>
                     </td>
                     <td class="item-author">{{item.VirtualPath}}</td>
                     <td class="item-state"><input type="checkbox" ng-model="item.IsPrimary" data-ng-disabled="true" /></td>

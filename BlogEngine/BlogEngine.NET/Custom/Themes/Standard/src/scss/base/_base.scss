@@ -39,8 +39,13 @@ a {
     }
 }
 
-p {
+p, .pure-g {
     margin-bottom: 1rem;
+}
+
+table td {
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 img {

@@ -3,8 +3,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="focusInput=false"><i class="fa fa-times"></i></button>
                     <h4 class="modal-title">{{package.Title}}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="focusInput=false"><i class="fa fa-times"></i></button>
                 </div>
                 <div class="modal-body modal-package">
                     <div class="modal-plugin-info">
@@ -68,7 +68,7 @@
             <div data-ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse" class="col-xs-6 col-md-6 col-lg-4">
                 <div class="gallery-item">
                     <div class="item-details-left">
-                        <div class="item-img-box"><span><img ng-if="item.IconUrl === ''" src="../Content/images/blog/pkg.png" /> <img ng-if="item.IconUrl != ''" ng-src="{{item.IconUrl}}" /></span></div>
+                        <div class="item-img-box"><span><img ng-if="item.IconUrl === ''" src="../Resources/images/blog/pkg.png" /> <img ng-if="item.IconUrl != ''" ng-src="{{item.IconUrl}}" /></span></div>
                         <div class="item-buttons">
                             <a ng-click="installPackage(item.Id)" class="btn btn-sm btn-default btn-left" angular-tooltip tooltip="lbl.download"><i class="fa fa-download"></i></a>
                             <a href="" ng-click="showInfo(item.Id)" class="btn btn-sm btn-default btn-right" angular-tooltip tooltip="lbl.view"><i class="fa fa-info-circle"></i></a>
@@ -93,10 +93,12 @@
                 </div>
             </div>
         </div>
-        <ul class="pagination" ng-if="items.length > itemsPerPage">
-            <li data-ng-class="{disabled: currentPage == 0}"><a data-ng-click="prevPage()" title="{{lbl.prev}}"><i class="fa fa-angle-left"></i></a></li>
-            <li data-ng-repeat="n in range(pagedItems.length)" data-ng-class="{active: n == currentPage}" data-ng-click="setPage()"><a data-ng-bind="n + 1">1</a></li>
-            <li data-ng-class="{disabled: currentPage == pagedItems.length - 1}"><a data-ng-click="nextPage()" title="{{lbl.next}}"><i class="fa fa-angle-right"></i></a></li>
-        </ul>
+        <nav aria-label="navigation">
+            <ul class="pagination m-0" ng-if="items.length > itemsPerPage">
+                <li class="page-item" data-ng-class="{disabled: currentPage == 0}"><a class="page-link" data-ng-click="prevPage()" title="{{lbl.prev}}">{{lbl.prev}}</a></li>
+                <li class="page-item" data-ng-repeat="n in range(pagedItems.length)" data-ng-class="{active: n == currentPage}" data-ng-click="setPage()"><a class="page-link" data-ng-bind="n + 1">1</a></li>
+                <li class="page-item" data-ng-class="{disabled: currentPage == pagedItems.length - 1}"><a class="page-link" data-ng-click="nextPage()" title="{{lbl.next}}">{{lbl.next}}</a></li>
+            </ul>
+        </nav>
     </div>
 </div>

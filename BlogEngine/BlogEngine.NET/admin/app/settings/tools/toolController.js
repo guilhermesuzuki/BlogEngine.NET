@@ -9,14 +9,13 @@
         }
         spinOn();
         dataService.getItems('/api/tools/check1')
-        .success(function (data) {
-            $scope.userIdentity = data.replace(/["']/g, "");
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingUsers);
-            spinOff();
-        });
+            .then(function (response) {
+                $scope.userIdentity = response.data.replace(/["']/g, "");
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingUsers);
+                spinOff();
+            });
     }
 
     $scope.check = function () {
@@ -26,20 +25,24 @@
         $("#msgList").empty();
 
         dataService.getItems('/api/tools/trust')
-            .success(function (data) { $scope.addMsg(data); })
-            .error(function (data) { toastr.error($rootScope.lbl.Error); });
+            .then(
+                function (response) { $scope.addMsg(response.data); },
+                function (data) { toastr.error($rootScope.lbl.Error); });
 
         dataService.getItems('/api/tools/data')
-            .success(function (data) { $scope.addMsg(data); })
-            .error(function (data) { toastr.error($rootScope.lbl.Error); });
+            .then(
+            function (response) { $scope.addMsg(response.data); },
+            function (data) { toastr.error($rootScope.lbl.Error); });
 
         dataService.getItems('/api/tools/root')
-            .success(function (data) { $scope.addMsg(data); })
-            .error(function (data) { toastr.error($rootScope.lbl.Error); });
+            .then(
+            function (response) { $scope.addMsg(response.data); },
+            function (data) { toastr.error($rootScope.lbl.Error); });
 
         dataService.getItems('/api/tools/Custom')
-            .success(function (data) { $scope.addMsg(data); })
-            .error(function () { toastr.error($rootScope.lbl.Error); });
+            .then(
+            function (response) { $scope.addMsg(response.data); },
+            function (data) { toastr.error($rootScope.lbl.Error); });
     }
 
     $scope.addMsg = function (data) {

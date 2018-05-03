@@ -10,39 +10,37 @@
     $scope.load = function () {
         spinOn();
         dataService.getItems('/api/comments')
-        .success(function (data) {
-            angular.copy(data, $scope.vm);
-            $scope.items = $scope.vm.Items;
-            gridInit($scope, $filter);
+            .then(function (response) {
+                angular.copy(response.data, $scope.vm);
+                $scope.items = $scope.vm.Items;
+                gridInit($scope, $filter);
 
-            if ($scope.filter == 'apr') {
-                $scope.gridFilter('IsApproved', true, 'apr');
-            }
-            if ($scope.filter == 'pnd') {
-                $scope.gridFilter('IsPending', true, 'pnd');
-            }
-            if ($scope.filter == 'spm') {
-                $scope.gridFilter('IsSpam', true, 'spm');
-            }
-            spinOff();
-        })
-        .error(function (data) {
-            toastr.error($rootScope.lbl.failed);
-            spinOff();
-        });
+                if ($scope.filter == 'apr') {
+                    $scope.gridFilter('IsApproved', true, 'apr');
+                }
+                if ($scope.filter == 'pnd') {
+                    $scope.gridFilter('IsPending', true, 'pnd');
+                }
+                if ($scope.filter == 'spm') {
+                    $scope.gridFilter('IsSpam', true, 'spm');
+                }
+                spinOff();
+            }, function (data) {
+                toastr.error($rootScope.lbl.failed);
+                spinOff();
+            });
     }
 
     $scope.showEditForm = function (id) {
         $scope.vm.SelectedItem = findInArray($scope.items, 'Id', id);
         dataService.getItems("/api/comments/" + id)
-        .success(function (data) {
-            angular.copy(data, $scope.vm.Detail);
-            $("#modal-comment-edit").modal();
-            $scope.focusInput = true;
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.failed);
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.vm.Detail);
+                $("#modal-comment-edit").modal();
+                $scope.focusInput = true;
+            }, function () {
+                toastr.error($rootScope.lbl.failed);
+            });
     }
 
     $scope.reply = function (parentId, postId) {
@@ -52,15 +50,14 @@
             "Content": $scope.commentReply.text
         }
         dataService.addItem("/api/comments", comment)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.commentUpdated);
-            $scope.load();
-            $("#modal-comment-edit").modal('hide');
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.updateFailed);
-            $("#modal-comment-edit").modal('hide');
-        });
+            .success(function (data) {
+                toastr.success($rootScope.lbl.commentUpdated);
+                $scope.load();
+                $("#modal-comment-edit").modal('hide');
+            }, function () {
+                toastr.error($rootScope.lbl.updateFailed);
+                $("#modal-comment-edit").modal('hide');
+            });
     }
 
     $scope.processChecked = function (action, itemsChecked) {
@@ -77,13 +74,12 @@
 	        if ($scope.filter === "pnd") {
 	            url = "/api/comments/DeleteAll/pending";
 	        }
-	        dataService.updateItem(url, { item: $scope.item })
-            .success(function (data) {
-                toastr.success($rootScope.lbl.commentsDeleted);
-                $scope.load();
-                spinOff();
-            })
-            .error(function () { toastr.error($rootScope.lbl.failed); spinOff(); });
+            dataService.updateItem(url, { item: $scope.item })
+                .then(function (data) {
+                    toastr.success($rootScope.lbl.commentsDeleted);
+                    $scope.load();
+                    spinOff();
+                }, function () { toastr.error($rootScope.lbl.failed); spinOff(); });
 	    }
 	}
 

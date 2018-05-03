@@ -11,21 +11,12 @@
     var id = Request["id"];
     var returnUrl = Request["return"];
     if (string.IsNullOrEmpty(returnUrl)) { returnUrl = Utils.RelativeWebRoot + "admin/#/content"; }
-    var imgHandler = "image.axd?picture=";
-    if (string.IsNullOrEmpty(Blog.CurrentInstance.StorageContainerName))
-    {
-        imgHandler = Blog.CurrentInstance.RelativeWebRoot + imgHandler;
-    }
-    else
-    {
-        imgHandler = Blog.CurrentInstance.RelativeWebRoot + Blog.CurrentInstance.StorageContainerName + "/" + imgHandler;
-    }
 }
 <html data-ng-app="blogAdmin">
 <head>
     <meta charset="utf-8" />
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
-    @Styles.Render("~/Content/admincss")
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/(css,admincss)")
     <link href="~/admin/themes/standard/css/styles.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         var UserVars = { Name: '@Security.CurrentUser.Identity.Name', IsAdmin: '@Security.IsAdministrator', Rights: ['@Html.Raw(userRights)'] };
@@ -35,14 +26,14 @@
 </head>
 <body class=" @Resources.labels.LangDirection-dir" ng-controller="FileManagerController">
     <div class="filemanager">
-        @Scripts.Render("~/scripts/wysiwyg")
+        @Scripts.Render("~/(js,wysiwyg)")
         <form id="form" action="" class="file-form">
             <div id="modal-form" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="focusInput=false"><i class="fa fa-times"></i></button>
-                            <h4 class="modal-title">{{lbl.addFolder}}</h4>
+                            <h4 class="modal-title float-left">{{lbl.addFolder}}</h4>
+                            <button type="button" class="close float-right" data-dismiss="modal" aria-hidden="true" ng-click="focusInput=false"><i class="fa fa-times"></i></button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
@@ -58,12 +49,12 @@
                 </div>
             </div>
             <div class="main-header clearfix">
-                <input type="file" id="file" name="file" class="pull-left input-file-hidden" tabindex="-1" onchange="angular.element(this).scope().uploadFile(this.files)" />
-                <button type="button" class="pull-left btn btn-success btn-sm btn-hasicon btn-input-file prev"><i class="fa fa-plus"></i>{{lbl.upload}}</button>
-                <button type="button" class="pull-left btn btn-sm btn-success btn-hasicon" ng-click="addFolder()"><i class="fa fa-folder"></i>{{lbl.theNew}} Folder</button>
-                <button type="button" class="pull-left btn btn-sm btn-danger btn-icon" ng-click="processChecked('delete')" ng-disabled="itemsChecked() === false" angular-tooltip tooltip="lbl.doDelete"><i class="fa fa-trash"></i></button>
+                <input type="file" id="file" name="file" class="float-left input-file-hidden" tabindex="-1" onchange="angular.element(this).scope().uploadFile(this.files)" />
+                <button type="button" class="float-left btn btn-success btn-sm btn-hasicon btn-input-file prev"><i class="fa fa-plus"></i>{{lbl.upload}}</button>
+                <button type="button" class="float-left btn btn-sm btn-success btn-hasicon" ng-click="addFolder()"><i class="fa fa-folder"></i>{{lbl.theNew}} Folder</button>
+                <button type="button" class="float-left btn btn-sm btn-danger btn-icon" ng-click="processChecked('delete')" ng-disabled="itemsChecked() === false" angular-tooltip tooltip="lbl.doDelete"><i class="fa fa-trash"></i></button>
                 <span id="file-spinner" style="padding-left: 10px; position: relative; top: 5px"><i class="fa fa-spinner fa-spin"></i></span>
-                <input type="text" data-ng-model="query" data-ng-change="search()" class="input-sm form-control search-form pull-right" placeholder="{{lbl.search}}..." />
+                <input type="text" data-ng-model="query" data-ng-change="search()" class="input-sm form-control search-form float-right" placeholder="{{lbl.search}}..." />
             </div>
             <div class="filemanager-content">
                 <div class="filemanager-path">{{currentPath}}</div>
@@ -71,16 +62,16 @@
                     <div class="item-file" ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder">
                         <div class="item-file-image">
                             <a ng-if="item.FileType === 0 && item.Name != '...'" title="{{item.Name}}" href="" ng-click="load(item.FullPath)">
-                                <i class="fa fa-folder"></i>
+                                <i class="fas fa-folder"></i>
                             </a>
                             <a ng-if="item.FileType === 0 && item.Name === '...'" title="{{item.Name}}" href="" ng-click="load(item.FullPath)">
-                                <i class="fa fa-arrow-left"></i>
+                                <i class="fas fa-arrow-left"></i>
                             </a>
                             <a ng-if="item.FileType === 1" title="{{item.Name}}" href="" ng-click="insertFile(item)">
                                 <i ng-class="item.ImgPlaceholder"></i>
                             </a>
                             <a ng-if="item.FileType === 2" title="{{item.Name}}" href="" ng-click="insertFile(item)">
-                                <img ng-src="@imgHandler{{item.FullPath}}" />
+                                <img ng-src="{{item.FullPath}}" />
                             </a>
                         </div>
                         <div class="item-file-name">

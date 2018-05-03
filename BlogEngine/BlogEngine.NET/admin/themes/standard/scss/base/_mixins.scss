@@ -111,6 +111,7 @@
     &.disabled,
     &[disabled],
     fieldset[disabled] & {
+        cursor: not-allowed !important;
         background-color: $background;
         border-color: $border;
         &:hover,

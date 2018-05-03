@@ -1,0 +1,3 @@
+﻿[class*="pure-u-"] { background-color: rgba(196, 196, 196, 0.25); box-sizing: border-box; }
+[class*="pure-u-"] img { vertical-align: middle; width: 100% !important; height: auto !important; border: 1px solid #ff6a00; box-sizing: border-box; }
+html { padding: 0 1em; }

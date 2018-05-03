@@ -1,4 +1,7 @@
-﻿using System.Web.UI;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Caching;
+using System.Web.UI;
 
 namespace BlogEngine.Core.Web.Controls
 {
@@ -11,5 +14,7 @@ namespace BlogEngine.Core.Web.Controls
         /// Current post
         /// </summary>
         public IPublishable PostItem { get; set; }
+
+
     }
 }

@@ -19,70 +19,67 @@
 
     $scope.load = function () {
         dataService.getItems('/api/lookups')
-        .success(function (data) {
-            angular.copy(data, $scope.lookups);
-            $scope.loadTags();
-        })
-        .error(function () {
-            toastr.error("Error loading lookups");
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.lookups);
+                $scope.loadTags();
+            }, function () {
+                toastr.error("Error loading lookups");
+            });
     }
 
     $scope.loadTags = function () {
         var tagsUrl = '/api/tags';
         var p = { take: 0, skip: 0 };
         dataService.getItems(tagsUrl, p)
-        .success(function (data) {
-            $scope.allTags = [];
-            for (var i = 0; i < data.length; i++) {
-                $scope.allTags[i] = (data[i].TagName);
-            }
-            if ($scope.id) {
-                $scope.loadPost();
-            }
-            else {
-                load_tags([], $scope.allTags);
-                $scope.selectedAuthor = selectedOption($scope.lookups.AuthorList, UserVars.Name);
-            }
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingTags);
-        });
+            .then(function (response) {
+                $scope.allTags = [];
+                for (var i = 0; i < response.data.length; i++) {
+                    $scope.allTags[i] = (response.data[i].TagName);
+                }
+                if ($scope.id) {
+                    $scope.loadPost();
+                }
+                else {
+                    load_tags([], $scope.allTags);
+                    $scope.selectedAuthor = selectedOption($scope.lookups.AuthorList, UserVars.Name);
+                }
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingTags);
+            });
     }
 
     $scope.loadPost = function () {
         spinOn();
         var url = '/api/posts/' + $scope.id;
         dataService.getItems(url)
-        .success(function (data) {
-            angular.copy(data, $scope.post);
-            // check post categories in the list
-            if ($scope.post.Categories != null) {
-                for (var i = 0; i < $scope.post.Categories.length; i++) {
-                    for (var j = 0; j < $scope.lookups.CategoryList.length; j++) {
-                        if ($scope.post.Categories[i].Id === $scope.lookups.CategoryList[j].OptionValue) {
-                            $scope.lookups.CategoryList[j].IsSelected = true;
+            .then(function (response) {
+                angular.copy(response.data, $scope.post);
+                // check post categories in the list
+                if ($scope.post.Categories != null) {
+                    for (var i = 0; i < $scope.post.Categories.length; i++) {
+                        for (var j = 0; j < $scope.lookups.CategoryList.length; j++) {
+                            if ($scope.post.Categories[i].Id === $scope.lookups.CategoryList[j].OptionValue) {
+                                $scope.lookups.CategoryList[j].IsSelected = true;
+                            }
                         }
                     }
                 }
-            }
-            var existingTags = [];
-            if ($scope.post.Tags != null) {
-                for (var i = 0; i < $scope.post.Tags.length; i++) {
-                    existingTags[i] = ($scope.post.Tags[i].TagName);
+                var existingTags = [];
+                if ($scope.post.Tags != null) {
+                    for (var i = 0; i < $scope.post.Tags.length; i++) {
+                        existingTags[i] = ($scope.post.Tags[i].TagName);
+                    }
                 }
-            }
-            $scope.selectedAuthor = selectedOption($scope.lookups.AuthorList, $scope.post.Author);
-            load_tags(existingTags, $scope.allTags);
-            editorSetHtml($scope.post.Content);
-            $scope.loadProfileCustomFields();
-            $scope.loadCustom();
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingPosts);
-            spinOff();
-        });
+                $scope.selectedAuthor = selectedOption($scope.lookups.AuthorList, $scope.post.Author);
+                load_tags(existingTags, $scope.allTags);
+                editorSetHtml($scope.post.Content);
+                $scope.loadProfileCustomFields();
+                $scope.loadCustom();
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingPosts);
+                spinOff();
+            });
     }
 
     $scope.save = function () {
@@ -95,7 +92,7 @@
             tinymce.execCommand('mceFocus', false, 'txtContent');
             return false;
         }
-        spinOn();       
+        spinOn();
         $scope.post.Author = $scope.selectedAuthor.OptionValue;
         if ($scope.post.Slug.length == 0) {
             $scope.post.Slug = toSlug($scope.post.Title);
@@ -115,32 +112,30 @@
 
         if ($scope.post.Id) {
             dataService.updateItem('api/posts/update/foo', $scope.post)
-           .success(function (data) {
-               $scope.refreshPost();
-               $scope.updateCustom();
-               toastr.success($rootScope.lbl.postUpdated);
-               $("#modal-form").modal('hide');
-               spinOff();
-           })
-           .error(function () { toastr.error($rootScope.lbl.updateFailed); spinOff(); });
+                .then(function (data) {
+                    $scope.refreshPost();
+                    $scope.updateCustom();
+                    toastr.success($rootScope.lbl.postUpdated);
+                    $("#modal-form").modal('hide');
+                    spinOff();
+                }, function () { toastr.error($rootScope.lbl.updateFailed); spinOff(); });
         }
         else {
             dataService.addItem('api/posts', $scope.post)
-           .success(function (data) {
-               toastr.success($rootScope.lbl.postAdded);
-               if (data.Id) {
-                   angular.copy(data, $scope.post);
-                   $scope.id = $scope.post.Id;
-                   $scope.updateCustom();
-               }
-               $("#modal-form").modal('hide');
-               spinOff();
-           })
-           .error(function () { toastr.error($rootScope.lbl.failedAddingNewPost); spinOff(); });
+                .then(function (response) {
+                    toastr.success($rootScope.lbl.postAdded);
+                    if (response.data.Id) {
+                        angular.copy(response.data, $scope.post);
+                        $scope.id = $scope.post.Id;
+                        $scope.updateCustom();
+                    }
+                    $("#modal-form").modal('hide');
+                    spinOff();
+                }, function () { toastr.error($rootScope.lbl.failedAddingNewPost); spinOff(); });
         }
     }
 
-    $scope.publish = function (doPublish){
+    $scope.publish = function (doPublish) {
         $scope.post.IsPublished = doPublish;
         $scope.save();
     }
@@ -150,23 +145,22 @@
         fd.append("file", files[0]);
 
         dataService.uploadFile("/api/upload?action=" + action, fd)
-        .success(function (data) {
-            toastr.success($rootScope.lbl.uploaded);
-            var editorHtml = editorGetHtml();
-            if (action === "file" && IsImage(data)) {
-                editorSetHtml(editorHtml + '<img src=' + data + ' />');
-            }
-            if (action === "video") {
-                editorSetHtml(editorHtml + '<p>[video src=' + data + ']</p>');
-            }
-            if (action === "file" && IsImage(data) === false) {
-                var res = data.split("|");
-                if (res.length === 2) {
-                    editorSetHtml(editorHtml + '<a href="' + res[0].replace('"', '') + '">' + res[1].replace('"', '') + '</a>');
+            .then(function (response) {
+                toastr.success($rootScope.lbl.uploaded);
+                var editorHtml = editorGetHtml();
+                if (action === "file" && IsImage(response.data)) {
+                    editorSetHtml(editorHtml + '<img src=' + response.data + ' />');
                 }
-            }
-        })
-        .error(function () { toastr.error($rootScope.lbl.importFailed); });
+                if (action === "video") {
+                    editorSetHtml(editorHtml + '<p>[video src=' + response.data + ']</p>');
+                }
+                if (action === "file" && IsImage(response.data) === false) {
+                    var res = response.data.split("|");
+                    if (res.length === 2) {
+                        editorSetHtml(editorHtml + '<a href="' + res[0].replace('"', '') + '">' + res[1].replace('"', '') + '</a>');
+                    }
+                }
+            }, function () { toastr.error($rootScope.lbl.importFailed); });
     }
 
     $scope.status = function () {
@@ -184,16 +178,16 @@
         spinOn();
         var url = '/api/posts/' + $scope.id;
         dataService.getItems(url)
-        .success(function (data) {
-            angular.copy(data, $scope.post);
-            spinOff();
-        })
-        .error(function () {
-            spinOff();
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.post);
+                spinOff();
+            }, function () {
+                spinOff();
+            });
     }
-       
-    $scope.addCagegory = function () {
+
+    $scope.addCategory = function () {
+        $scope.category = { "Title": "", "Description": "", "Icon": "", "Parent": null, };
         $("#modal-add-cat").modal();
         $scope.focusInput = true;
     }
@@ -203,30 +197,28 @@
             return false;
         }
         dataService.addItem("/api/categories", $scope.category)
-        .success(function (data) {
-            $scope.lookups.CategoryList.push(
-                {
-                    OptionName: data.Title,
-                    OptionValue: data.Id,  
-                    IsSelected: false
-                }
-            );
-            toastr.success($rootScope.lbl.categoryAdded);
-            $("#modal-add-cat").modal('hide');
-        })
-        .error(function () {
-            toastr.error(data);
-        });
+            .then(function (response) {
+                $scope.lookups.CategoryList.push(
+                    {
+                        OptionName: response.data.Title,
+                        OptionValue: response.data.Id,
+                        IsSelected: false
+                    }
+                );
+                toastr.success($rootScope.lbl.categoryAdded);
+                $("#modal-add-cat").modal('hide');
+            }, function (response) {
+                toastr.error(response.data);
+            });
     }
 
     $scope.saveEditOptions = function () {
         dataService.updateItem('api/lookups/update/foo', $scope.lookups.PostOptions)
-           .success(function (data) {
-               toastr.success($rootScope.lbl.postUpdated);
-               $("#myModal").modal('hide');
-               spinOff();
-           })
-           .error(function () { toastr.error($rootScope.lbl.updateFailed); });
+            .then(function (data) {
+                toastr.success($rootScope.lbl.postUpdated);
+                $("#myModal").modal('hide');
+                spinOff();
+            }, function () { toastr.error($rootScope.lbl.updateFailed); });
     }
 
     $scope.load();
@@ -263,12 +255,11 @@
         $scope.customFields = [];
 
         dataService.getItems('/api/customfields', { filter: 'CustomType == "POST" && ObjectId == "' + $scope.post.Id + '"' })
-        .success(function (data) {
-            angular.copy(data, $scope.customFields);
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingCustomFields);
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.customFields);
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingCustomFields);
+            });
     }
 
     $scope.addCustom = function () {
@@ -299,27 +290,25 @@
             $scope.customFields[i].ObjectId = $scope.post.Id;
         }
         dataService.updateItem("/api/customfields", $scope.customFields)
-        .success(function (data) {
-            spinOff();
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.updateFailed);
-            spinOff();
-        });
+            .then(function (data) {
+                spinOff();
+            }, function () {
+                toastr.error($rootScope.lbl.updateFailed);
+                spinOff();
+            });
     }
 
     $scope.loadProfileCustomFields = function () {
         $scope.profileCustomFields = [];
 
         dataService.getItems('/api/customfields', { filter: 'CustomType == "PROFILE"' })
-        .success(function (data) {
-            angular.copy(data, $scope.profileCustomFields);
-            $scope.twitterItem = findCustomItem("Twitter");
-            $scope.facebookItem = findCustomItem("Facebook");
-        })
-        .error(function () {
-            toastr.error($rootScope.lbl.errorLoadingCustomFields);
-        });
+            .then(function (response) {
+                angular.copy(response.data, $scope.profileCustomFields);
+                $scope.twitterItem = findCustomItem("Twitter");
+                $scope.facebookItem = findCustomItem("Facebook");
+            }, function () {
+                toastr.error($rootScope.lbl.errorLoadingCustomFields);
+            });
     }
 
     function findCustomItem(key) {

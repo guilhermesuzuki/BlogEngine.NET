@@ -13,30 +13,32 @@
     var email = Membership.Provider.GetUser(name, true).Email;
     var profile = new AuthorProfile(name);
     var src = profile.PhotoUrl;
-    if (string.IsNullOrEmpty(src))
+
+    if (string.IsNullOrWhiteSpace(src) == true)
     {
         src = Avatar.GetSrc(email);
     }
 }
-<html ng-app="blogAdmin">
+<html ng-app="blogAdmin" class="p-0">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>@BlogSettings.Instance.Name (@Security.CurrentMembershipUser.UserName)</title>
-    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-    @Styles.Render("~/Content/admincss")
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    @Styles.Render("~/(css,admincss)")
+    @Styles.Render("~/(css,pure)")
     <link href="~/admin/themes/standard/css/styles.css?ver=4" rel="stylesheet">
-    <link rel="shortcut icon" href="@Href(Utils.ApplicationRelativeWebRoot + "Content/images/blog/blogengine.ico")" type="image/x-icon" />
+    <link rel="shortcut icon" href="@Href(Utils.ApplicationRelativeWebRoot + "Resources/images/blog/blogengine.ico")" type="image/x-icon" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="format-detection" content="telephone=no" />
     <script type="text/javascript">
         var UserVars = { Name: '@Html.Raw(Security.CurrentUser.Identity.Name)', IsAdmin: '@Security.IsAdministrator', Rights: ['@Html.Raw(userRights)'] };
-        var ActiveTheme = '@BlogSettings.Instance.Theme'
-        var UsageScenario = '@BlogConfig.UsageScenario'
-        var ServerTime = '@DateTime.Now'
-        var UtcTime = '@DateTime.UtcNow'
+        var ActiveTheme = '@BlogSettings.Instance.Theme';
+        var UsageScenario = '@BlogConfig.UsageScenario';
+        var ServerTime = '@DateTime.Now';
+        var UtcTime = '@DateTime.UtcNow';
         if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
             var msViewportStyle = document.createElement("style");
             var mq = "@@-ms-viewport{width:auto!important}";
