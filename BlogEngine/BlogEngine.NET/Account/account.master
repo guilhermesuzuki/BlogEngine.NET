@@ -23,11 +23,12 @@
         <div class="account">
             <div class="account-header text-center">
                 <a href="http://dotnetblogengine.net/" target="_blank">
-                    <img alt="BlogEngine.NET" src="../Resources/images/blog/logo.png" /></a>
+                    <img alt="BlogEngine.NET" src="../Resources/images/blog/logo.png" />
+                </a>
             </div>
-             <div id="StatusBox">
-                    <div id="AdminStatus" runat="server" style="display: none"></div>
-                </div>
+            <div id="StatusBox">
+                <div id="AdminStatus" runat="server" style="display: none"></div>
+            </div>
             <div class="account-box">
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
             </div>
