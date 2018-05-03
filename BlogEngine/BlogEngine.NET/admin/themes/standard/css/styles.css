@@ -443,7 +443,7 @@ input[type=checkbox], input[type=radio] { margin: 0; padding: 0; position: relat
 .dashboard-view .dashboard-stats ul li a .item-stats-info-green { background-color: #24b685 }
 .dashboard-view .dashboard-stats ul li a .item-stats-info-yellow { background-color: #f6bb42 }
 .dashboard-view .dashboard-stats ul li a .item-stats-info-red { background-color: #ea5a5a }
-.dashboard-view .dashboard-gallery ul li { position: relative; height: 57px; padding: 0; -moz-transition: background ease 0.5s; -o-transition: background ease 0.5s; -webkit-transition: background ease 0.5s; transition: background ease 0.5s; background: #fff }
+.dashboard-view .dashboard-gallery ul li, .dashboard-view .dashboard-news ul li { position: relative; height: 57px; padding: 0; -moz-transition: background ease 0.5s; -o-transition: background ease 0.5s; -webkit-transition: background ease 0.5s; transition: background ease 0.5s; background: #fff }
     .dashboard-view .dashboard-gallery ul li:hover { background: #fafafa }
     .dashboard-view .dashboard-gallery ul li .item-link { display: block; height: 100%; padding: 4px; padding-left: 55px }
     .dashboard-view .dashboard-gallery ul li .item-img { position: absolute; left: 12px; top: 11px; background-color: #fff; width: 32px; height: 32px }
