@@ -39,13 +39,13 @@ Check out the [changelog](changelog.md) to see what's new with Plyr.
 
 Some awesome folks have made plugins for CMSs and Components for JavaScript frameworks:
 
-| Type      | Maintainer                                                            | Link                                                                                         |
-| --------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| WordPress | Ryan Anthony Drake ([@iamryandrake](https://github.com/iamryandrake)) | [https://wordpress.org/plugins/plyr/](https://wordpress.org/plugins/plyr/)                   |
-| React     | Jose Miguel Bejarano ([@xDae](https://github.com/xDae))               | [https://github.com/xDae/react-plyr](https://github.com/xDae/react-plyr)                     |
-| Vue       | Gabe Dunn ([@redxtech](https://github.com/redxtech))                  | [https://github.com/redxtech/vue-plyr](https://github.com/redxtech/vue-plyr)                 |
-| Neos      | Jon Uhlmann ([@jonnitto](https://github.com/jonnitto))                | [https://packagist.org/packages/jonnitto/plyr](https://packagist.org/packages/jonnitto/plyr) |
-| Kirby     | Dominik Pschenitschni ([@dpschen](https://github.com/dpschen))        | [https://github.com/dpschen/kirby-plyrtag](https://github.com/dpschen/kirby-plyrtag)         |
+| Type      | Maintainer                                                     | Link                                                                                         |
+| --------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| WordPress | Brandon Lavigne ([@drrobotnik](https://github.com/drrobotnik)) | [https://wordpress.org/plugins/plyr/](https://wordpress.org/plugins/plyr/)                   |
+| React     | Jose Miguel Bejarano ([@xDae](https://github.com/xDae))        | [https://github.com/xDae/react-plyr](https://github.com/xDae/react-plyr)                     |
+| Vue       | Gabe Dunn ([@redxtech](https://github.com/redxtech))           | [https://github.com/redxtech/vue-plyr](https://github.com/redxtech/vue-plyr)                 |
+| Neos      | Jon Uhlmann ([@jonnitto](https://github.com/jonnitto))         | [https://packagist.org/packages/jonnitto/plyr](https://packagist.org/packages/jonnitto/plyr) |
+| Kirby     | Dominik Pschenitschni ([@dpschen](https://github.com/dpschen)) | [https://github.com/dpschen/kirby-plyrtag](https://github.com/dpschen/kirby-plyrtag)         |
 
 ## Quick setup
 
@@ -128,7 +128,7 @@ See [initialising](#initialising) for more information on advanced setups.
 If you want to use our CDN (provided by [Fastly](https://www.fastly.com/)) for the JavaScript, you can use the following:
 
 ```html
-<script src="https://cdn.plyr.io/3.2.4/plyr.js"></script>
+<script src="https://cdn.plyr.io/3.3.5/plyr.js"></script>
 ```
 
 _Note_: Be sure to read the [polyfills](#polyfills) section below about browser compatibility
@@ -144,13 +144,13 @@ Include the `plyr.css` stylsheet into your `<head>`
 If you want to use our CDN (provided by [Fastly](https://www.fastly.com/)) for the default CSS, you can use the following:
 
 ```html
-<link rel="stylesheet" href="https://cdn.plyr.io/3.2.4/plyr.css">
+<link rel="stylesheet" href="https://cdn.plyr.io/3.3.5/plyr.css">
 ```
 
 ### SVG Sprite
 
 The SVG sprite is loaded automatically from our CDN (provided by [Fastly](https://www.fastly.com/)). To change this, see the [options](#options) below. For
-reference, the CDN hosted SVG sprite can be found at `https://cdn.plyr.io/3.2.4/plyr.svg`.
+reference, the CDN hosted SVG sprite can be found at `https://cdn.plyr.io/3.3.5/plyr.svg`.
 
 ## Ads
 
@@ -279,7 +279,7 @@ Note the single quotes encapsulating the JSON and double quotes on the object ke
 | `clickToPlay`        | Boolean                    | `true`                                                                                                                         | Click (or tap) of the video container will toggle play/pause.                                                                                                                                                                                                                                                                                                          |
 | `disableContextMenu` | Boolean                    | `true`                                                                                                                         | Disable right click menu on video to <em>help</em> as very primitive obfuscation to prevent downloads of content.                                                                                                                                                                                                                                                      |
 | `hideControls`       | Boolean                    | `true`                                                                                                                         | Hide video controls automatically after 2s of no mouse or focus movement, on control element blur (tab out), on playback start or entering fullscreen. As soon as the mouse is moved, a control element is focused or playback is paused, the controls reappear instantly.                                                                                             |
-| `showPosterOnEnd`    | Boolean                    | false                                                                                                                          | This will restore and _reload_ HTML5 video once playback is complete. Note: depending on the browser caching, this may result in the video downloading again (or parts of it). Use with caution.                                                                                                                                                                       |
+| `resetOnEnd`         | Boolean                    | false                                                                                                                          | Reset the playback to the start once playback is complete.                                                                                                                                                                                                                                                                                                             |
 | `keyboard`           | Object                     | `{ focused: true, global: false }`                                                                                             | Enable [keyboard shortcuts](#shortcuts) for focused players only or globally                                                                                                                                                                                                                                                                                           |
 | `tooltips`           | Object                     | `{ controls: false, seek: true }`                                                                                              | `controls`: Display control labels as tooltips on `:hover` & `:focus` (by default, the labels are screen reader only). `seek`: Display a seek tooltip to indicate on click where the media would seek to.                                                                                                                                                              |
 | `duration`           | Number                     | `null`                                                                                                                         | Specify a custom duration for media.                                                                                                                                                                                                                                                                                                                                   |
@@ -374,8 +374,9 @@ player.fullscreen.active; // false;
 | -------------------- | ------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `isHTML5`            | ✓      | -      | Returns a boolean indicating if the current player is HTML5.                                                                                                                         |
 | `isEmbed`            | ✓      | -      | Returns a boolean indicating if the current player is an embedded player.                                                                                                            |
-| `paused`             | ✓      | -      | Returns a boolean indicating if the current player is paused.                                                                                                                        |
 | `playing`            | ✓      | -      | Returns a boolean indicating if the current player is playing.                                                                                                                       |
+| `paused`             | ✓      | -      | Returns a boolean indicating if the current player is paused.                                                                                                                        |
+| `stopped`            | ✓      | -      | Returns a boolean indicating if the current player is stopped.                                                                                                                       |
 | `ended`              | ✓      | -      | Returns a boolean indicating if the current player has finished playback.                                                                                                            |
 | `buffered`           | ✓      | -      | Returns a float between 0 and 1 indicating how much of the media is buffered                                                                                                         |
 | `currentTime`        | ✓      | ✓      | Gets or sets the currentTime for the player. The setter accepts a float in seconds.                                                                                                  |
@@ -388,7 +389,7 @@ player.fullscreen.active; // false;
 | `quality`&sup1;      | ✓      | ✓      | Gets or sets the quality for the player. The setter accepts a value from the options specified in your config.                                                                       |
 | `loop`               | ✓      | ✓      | Gets or sets the current loop state of the player. The setter accepts a boolean.                                                                                                     |
 | `source`             | ✓      | ✓      | Gets or sets the current source for the player. The setter accepts an object. See [source setter](#source-setter) below for examples.                                                |
-| `poster`&sup2;       | ✓      | ✓      | Gets or sets the current poster image for the player. The setter accepts a string; the URL for the updated poster image.                                                             |
+| `poster`             | ✓      | ✓      | Gets or sets the current poster image for the player. The setter accepts a string; the URL for the updated poster image.                                                             |
 | `autoplay`           | ✓      | ✓      | Gets or sets the autoplay state of the player. The setter accepts a boolean.                                                                                                         |
 | `language`           | ✓      | ✓      | Gets or sets the preferred captions language for the player. The setter accepts an ISO two-letter language code. Support for the languages is dependent on the captions you include. |
 | `fullscreen.active`  | ✓      | -      | Returns a boolean indicating if the current player is in fullscreen mode.                                                                                                            |
@@ -599,6 +600,8 @@ Russitto ([@russitto](https://github.com/russitto)) for working on this. Here's 
 *   Using [Shaka](https://github.com/google/shaka-player) - [Demo](http://codepen.io/sampotts/pen/zBNpVR)
 *   Using [dash.js](https://github.com/Dash-Industry-Forum/dash.js) - [Demo](http://codepen.io/sampotts/pen/BzpJXN)
 
+_Note_: These need updating to use the new v3 syntax but would still work.
+
 ## Fullscreen
 
 Fullscreen in Plyr is supported by all browsers that [currently support it](http://caniuse.com/#feat=fullscreen).
@@ -607,19 +610,20 @@ Fullscreen in Plyr is supported by all browsers that [currently support it](http
 
 Plyr supports the last 2 versions of most _modern_ browsers.
 
-| Browser       | Supported |
-| ------------- | --------- |
-| Safari        | ✓         |
-| Mobile Safari | ✓&sup1;   |
-| Firefox       | ✓         |
-| Chrome        | ✓         |
-| Opera         | ✓         |
-| Edge          | ✓         |
-| IE11          | ✓         |
-| IE10          | ✓&sup2;   |
+| Browser       | Supported     |
+| ------------- | ------------- |
+| Safari        | ✓             |
+| Mobile Safari | ✓&sup1;       |
+| Firefox       | ✓             |
+| Chrome        | ✓             |
+| Opera         | ✓             |
+| Edge          | ✓             |
+| IE11          | ✓&sup3;       |
+| IE10          | ✓&sup2;&sup3; |
 
 1.  Mobile Safari on the iPhone forces the native player for `<video>` unless the `playsinline` attribute is present. Volume controls are also disabled as they are handled device wide.
-2.  Native player used (no support for `<progress>` or `<input type="range">`) but the API is supported. No native fullscreen support, fallback can be used (see [options](#options))
+2.  Native player used (no support for `<progress>` or `<input type="range">`) but the API is supported. No native fullscreen support, fallback can be used (see [options](#options)).
+3.  Polyfills required. See below.
 
 ### Polyfills
 
@@ -668,8 +672,10 @@ Plyr is developed by [@sam_potts](https://twitter.com/sam_potts) / [sampotts.me]
 
 ## Donate
 
-Plyr costs money to run, not only my time - I donate that for free but domains, hosting and more. Any help is appreciated...
-[Donate to support Plyr](https://www.paypal.me/pottsy/20usd)
+Plyr costs money to run, not only my time. I donate my time for free as I enjoy building Plyr but unfortunately have to pay for domains, hosting, and more. Any help with costs is appreciated...
+
+*   [Donate via Patron](https://www.patreon.com/plyr)
+*   [Donate via PayPal](https://www.paypal.me/pottsy/20usd)
 
 ## Mentions
 
@@ -707,9 +713,13 @@ Credit to the PayPal HTML5 Video player from which Plyr's caption functionality 
 
 ## Thanks
 
-[![Fastly](https://cdn.plyr.io/static/demo/fastly-logo.png)](https://www.fastly.com/)
+[![Fastly](https://cdn.plyr.io/static/fastly-logo.png)](https://www.fastly.com/)
 
 Massive thanks to [Fastly](https://www.fastly.com/) for providing the CDN services.
+
+[![Sentry](https://cdn.plyr.io/static/sentry-logo-black.svg)](https://sentry.io/)
+
+Massive thanks to [Sentry](https://sentry.io/) for providing the logging services for the demo site.
 
 ## Copyright and License
 

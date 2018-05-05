@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SyntaxHighlighter Large File Demo</title>
-	<script type="text/javascript" src="../scripts/xregexp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
+	<script type="text/javascript" src="../scripts/XRegExp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
 	<script type="text/javascript" src="../scripts/shCore.js"></script>
 	<script type="text/javascript" src="../scripts/shBrushJScript.js"></script>
 	<link type="text/css" rel="stylesheet" href="../styles/shCore.css"/>
@@ -19,7 +19,7 @@
 	This demo shows the speed of SyntaxHighlighter and ability to render large files.
 </p>
 
-<script type="text/syntaxhighlighter" class="brush: js;"><![CDATA[
+<script type="syntaxhighlighter" class="brush: js;"><![CDATA[
 	//
 	// Begin anonymous function. This is used to contain local scope variables without polutting global scope.
 	//
@@ -265,7 +265,7 @@
 				result = []
 				;
 
-			// support for &lt;SCRIPT TYPE="text/syntaxhighlighter" /> feature
+			// support for &lt;SCRIPT TYPE="syntaxhighlighter" /> feature
 			if (conf.useScriptTags)
 				elements = elements.concat(getSyntaxHighlighterScriptTags());
 
@@ -731,12 +731,12 @@
 	{
 		var match, 
 			result = {},
-			arrayRegex = XRegExp("^\\[(?<values>(.*?))\\]$"),
-			regex = XRegExp(
+			arrayRegex = new XRegExp("^\\[(?<values>(.*?))\\]$"),
+			regex = new XRegExp(
 				"(?<name>[\\w-]+)" +
 				"\\s*:\\s*" +
 				"(?<value>" +
-					"[\\w%#-]+|" +		// word
+					"[\\w-%#]+|" +		// word
 					"\\[.*?\\]|" +		// [] array
 					'".*?"|' +			// "" string
 					"'.*?'" +			// '' string
@@ -745,7 +745,7 @@
 			)
 			;
 
-		while ((match = XRegExp.exec(str, regex)) != null) 
+		while ((match = regex.exec(str)) != null) 
 		{
 			var value = match.value
 				.replace(/^['"]|['"]$/g, '') // strip quotes from end of strings
@@ -754,7 +754,7 @@
 			// try to parse array value
 			if (value != null && arrayRegex.test(value))
 			{
-				var m = XRegExp.exec(value, arrayRegex);
+				var m = arrayRegex.exec(value);
 				value = m.values.length > 0 ? m.values.split(/\s*,\s*/) : [];
 			}
 
@@ -1014,7 +1014,7 @@
 			func = regexInfo.func ? regexInfo.func : defaultAdd
 			;
 
-		while((match = XRegExp.exec(code, regexInfo.regex)) != null)
+		while((match = regexInfo.regex.exec(code)) != null)
 		{
 			var resultMatch = func(match, regexInfo);
 
@@ -1057,9 +1057,7 @@
 	};
 
 	/**
-	 * Finds all &lt;SCRIPT TYPE="text/syntaxhighlighter" /> elementss.
-	 * Finds both "text/syntaxhighlighter" and "syntaxhighlighter"
-	 * ...in order to make W3C validator happy with subtype and backwardscompatible without subtype
+	 * Finds all &lt;SCRIPT TYPE="syntaxhighlighter" /> elementss.
 	 * @return {Array} Returns array of all found SyntaxHighlighter tags.
 	 */
 	function getSyntaxHighlighterScriptTags()
@@ -1069,7 +1067,7 @@
 			;
 
 		for (var i = 0; i < tags.length; i++)
-			if (tags[i].type == 'text/syntaxhighlighter' || tags[i].type == 'syntaxhighlighter')
+			if (tags[i].type == 'syntaxhighlighter')
 				result.push(tags[i]);
 
 		return result;
@@ -1691,7 +1689,7 @@
 			this.htmlScript = {
 				left : { regex: regexGroup.left, css: 'script' },
 				right : { regex: regexGroup.right, css: 'script' },
-				code : XRegExp(
+				code : new XRegExp(
 					"(?<left>" + regexGroup.left.source + ")" +
 					"(?<code>.*?)" +
 					"(?<right>" + regexGroup.right.source + ")",

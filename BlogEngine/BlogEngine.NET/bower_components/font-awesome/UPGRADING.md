@@ -6,6 +6,10 @@ This guide is useful to figure out what you need to do between breaking changes.
 
 As always, [submit issues](https://github.com/FortAwesome/Font-Awesome/issues/new) that you run into with this guide or with these upgrades to us.
 
+## 5.0.11 to 5.0.12
+
+Due to a collision with the "r" glyph the R Project brand icon has been renamed to `r-project`.
+
 ## 5.0.x to 5.1.0
 
 ### New packages available for browser-only integration
@@ -36,6 +40,12 @@ _All packages are in the [@fortawesome NPM scope](https://www.npmjs.com/search?q
 |---------------------------|------------------------|
 | fontawesome-free-webfonts | fontawesome-free       |
 | fontawesome-pro-webfonts  | fontawesome-pro        |
+| fontawesome-free-solid    | free-solid-svg-icons   |
+| fontawesome-free-regular  | free-regular-svg-icons |
+| fontawesome-free-brands   | free-brands-svg-icons  |
+| fontawesome-pro-solid     | pro-solid-svg-icons    |
+| fontawesome-pro-regular   | pro-regular-svg-icons  |
+| fontawesome-pro-light     | pro-light-svg-icons    |
 
 (1) Old packages have now been deprecated. They are still available but will only receive high priority patch release fixes.
 
@@ -55,23 +65,26 @@ What does that mean?
 ~~Old way:~~
 
 ```javascript
-import fontawesome from '@fontawesome/fontawesome'
+import fontawesome from '@fortawesome/fontawesome'
 import solid from '@fortawesome/fontawesome-free-solid'
 import faTwitter from '@fortawesome/fontawesome-free-brands/faTwitter'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
-import fontaweome.library.add(solid, faTwitter)
+library.add(solid, faTwitter)
 ```
 
 New way:
 
 ```javascript
-import { library } from '@fontawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import library.add(fas, faTwitter)
+library.add(fas, faTwitter)
+
+// Kicks off the process of finding <i> tags and replacing with <svg>
+dom.watch()
 ```
 
 This is also a valid way to import icons that works if your tool does not support tree shaking:

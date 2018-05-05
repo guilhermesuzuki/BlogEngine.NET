@@ -30,14 +30,15 @@
     "url": "git://github.com/sampotts/plyr.git"
   },
   "license": "MIT",
-  "version": "3.2.4",
-  "_release": "3.2.4",
+  "version": "3.3.5",
+  "_release": "3.3.5",
   "_resolution": {
     "type": "version",
-    "tag": "v3.2.4",
-    "commit": "a812650fea4b61878a50b0a1cc09c5043fbe815e"
+    "tag": "v3.3.5",
+    "commit": "165515009266a5dc0b625cef26cf6ba1a80bb12e"
   },
   "_source": "https://github.com/selz/plyr.git",
-  "_target": "v3.2.4",
-  "_originalSource": "plyr"
+  "_target": "v3.3.5",
+  "_originalSource": "plyr",
+  "_direct": true
 }

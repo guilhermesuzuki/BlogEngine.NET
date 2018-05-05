@@ -1,40 +1,15 @@
 {
   "name": "SyntaxHighlighter",
-  "version": "3.0.9",
-  "main": "./scripts/shCore.js",
-  "author": "Alex Gorbatchev <alex.gorbatchev@gmail.com> (http://alexgorbatchev.com)",
-  "licenses": [
-    {
-      "type": "MIT"
-    },
-    {
-      "type": "LGPL"
-    }
-  ],
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "components"
-  ],
-  "dependencies": {
-    "xregexp": "2.0.x",
-    "qunit": "~1.12.0"
-  },
-  "devDependencies": {
-    "jquery": "1.9.x",
-    "mocha": "1.9.x",
-    "chai": "1.1.x",
-    "sinon": "http://sinonjs.org/releases/sinon-1.6.0.js",
-    "sinon-chai": "2.4.x"
-  },
   "homepage": "https://github.com/alexgorbatchev/SyntaxHighlighter",
-  "_release": "3.0.9",
+  "version": "3.0.83",
+  "_release": "3.0.83",
   "_resolution": {
     "type": "version",
-    "tag": "v3.0.9",
-    "commit": "a8ed0f88ad20d2f7b894f2870649faa5b282feda"
+    "tag": "3.0.83",
+    "commit": "682bf8cfd5a0686d51ed16325b72625ddf64ae11"
   },
   "_source": "https://github.com/alexgorbatchev/SyntaxHighlighter.git",
-  "_target": "v3.0.9",
-  "_originalSource": "SyntaxHighlighter"
+  "_target": "3.0.83",
+  "_originalSource": "SyntaxHighlighter",
+  "_direct": true
 }
