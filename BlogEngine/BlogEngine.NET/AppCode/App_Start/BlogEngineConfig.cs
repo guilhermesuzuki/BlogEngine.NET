@@ -117,7 +117,6 @@ namespace BlogEngine.NET.App_Start
 			bundles.Add(
 				new StyleBundle("~/(css,common)")
 				.Include("~/Resources/site.css")
-				.Include("~/Resources/star-rating.css")
 				.Include("~/Resources/normalize.min.css")
 				.Include("~/Resources/[bootstrap]/css/bootstrap.min.css")
 				.Include("~/Resources/[fontawesome]/css/fa-solid.min.css")
