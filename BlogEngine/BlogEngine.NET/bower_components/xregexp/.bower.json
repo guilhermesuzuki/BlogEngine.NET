@@ -1,14 +1,15 @@
 {
   "name": "xregexp",
   "homepage": "https://github.com/slevithan/xregexp",
-  "version": "4.1.1",
-  "_release": "4.1.1",
+  "version": "4.2.0",
+  "_release": "4.2.0",
   "_resolution": {
     "type": "version",
-    "tag": "v4.1.1",
-    "commit": "ccdf84a558e58cbdbe4144640620804b8154c98f"
+    "tag": "v4.2.0",
+    "commit": "31440c024fa42c1cbd846726d8bdb09f95631330"
   },
   "_source": "https://github.com/slevithan/xregexp.git",
-  "_target": "v4.1.1",
-  "_originalSource": "xregexp"
+  "_target": "v4.2.0",
+  "_originalSource": "xregexp",
+  "_direct": true
 }

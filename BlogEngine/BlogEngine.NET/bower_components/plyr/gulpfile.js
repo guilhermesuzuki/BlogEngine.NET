@@ -13,6 +13,7 @@ const filter = require('gulp-filter');
 const sass = require('gulp-sass');
 const cleancss = require('gulp-clean-css');
 const run = require('run-sequence');
+const header = require('gulp-header');
 const prefix = require('gulp-autoprefixer');
 const gitbranch = require('git-branch');
 const svgstore = require('gulp-svgstore');
@@ -146,6 +147,7 @@ const build = {
                             options,
                         ),
                     )
+                    .pipe(header('typeof navigator === "object" && ')) // "Support" SSR (#935)
                     .pipe(sourcemaps.write(''))
                     .pipe(gulp.dest(output))
                     .pipe(filter('**/*.js'))
@@ -224,9 +226,14 @@ gulp.task('watch', () => {
     gulp.watch(paths.demo.src.sass, tasks.sass);
 });
 
+// Build distribution
+gulp.task('build', () => {
+    run(tasks.clean, tasks.js, tasks.sass, tasks.sprite);
+});
+
 // Default gulp task
 gulp.task('default', () => {
-    run(tasks.clean, tasks.js, tasks.sass, tasks.sprite, 'watch');
+    run('build', 'watch');
 });
 
 // Publish a version to CDN and demo
@@ -239,11 +246,11 @@ if (Object.keys(aws).includes('cdn') && Object.keys(aws).includes('demo')) {
     const branch = {
         current: gitbranch.sync(),
         master: 'master',
-        beta: 'beta',
+        develop: 'develop',
     };
     const allowed = [
         branch.master,
-        branch.beta,
+        branch.develop,
     ];
 
     const maxAge = 31536000; // 1 year
@@ -255,7 +262,7 @@ if (Object.keys(aws).includes('cdn') && Object.keys(aws).includes('demo')) {
             },
         },
         demo: {
-            uploadPath: branch.current === branch.beta ? 'beta/' : null,
+            uploadPath: branch.current === branch.develop ? 'beta/' : null,
             headers: {
                 'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
                 Vary: 'Accept-Encoding',
